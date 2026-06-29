@@ -1,0 +1,10 @@
+{
+  "competitions": [
+    { "date": "2026-10-09", "name": "October NAC — Div I Men's Épée", "location": "Orlando, FL", "status": "🎯 target" },
+    { "date": "2026-11-20", "name": "November NAC", "location": "Columbus, OH", "status": "planned" },
+    { "date": "2027-01-08", "name": "January NAC", "location": "Oklahoma City, OK", "status": "planned" },
+    { "date": "2027-04-16", "name": "April NAC + Div I Championship", "location": "Cincinnati, OH", "status": "planned" }
+  ],
+  "flights": [],
+  "note": "Tell Claude to add competitions or flights. Mirrors My Schedule in the vault."
+}

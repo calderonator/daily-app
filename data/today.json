@@ -1,0 +1,12 @@
+{
+  "date": "2026-06-28",
+  "phase": "Pre-prep (not training yet)",
+  "focus": "Build base habits before going full-time (~Aug 15)",
+  "todos": [
+    { "id": "creatine", "text": "Creatine 5g (start now to saturate by Aug)", "done": false },
+    { "id": "sleep", "text": "Morning sunlight + consistent wake time", "done": false },
+    { "id": "protein", "text": "Hit protein target (120–160g)", "done": false },
+    { "id": "move", "text": "Light movement / mobility", "done": false }
+  ],
+  "note": "Full training plan activates ~Aug 15 after your force-velocity test. For now: creatine, sleep, protein, light movement."
+}

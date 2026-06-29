@@ -1,0 +1,73 @@
+{
+  "phase": "Re-entry / Base (template)",
+  "week": "Activates ~Aug 15, 2026",
+  "startDate": "2026-08-15",
+  "principles": [
+    "Day 1: force-velocity test + movement screen (set baselines)",
+    "Ramp gradually — no load spikes coming off time off (Gabbett)",
+    "Quality reps, full recovery between sets",
+    "Sleep + creatine already dialed in"
+  ],
+  "days": [
+    {
+      "day": "Day 1 — Assess + Lower",
+      "focus": "Baselines + foundational strength",
+      "warmup": "Bike 5min, dynamic mobility, FIFA 11+ style activation",
+      "exercises": [
+        { "name": "Force-velocity test (loaded jumps)", "sets": "5–6 loads", "reps": "2", "target": "baseline", "cues": ["Max intent every jump", "Loads from bodyweight → heavy", "Film side-on with MyJump2"], "video": "MyJump2 force velocity profile test", "notes": "→ Morin spreadsheet" },
+        { "name": "Goblet / Back squat", "sets": "3", "reps": "8", "cues": ["Brace core before each rep", "Knees track over toes", "Hip crease below knee"], "video": "goblet squat proper form" },
+        { "name": "Romanian deadlift", "sets": "3", "reps": "8", "cues": ["Hinge at the hips", "Soft knees, flat back", "Bar stays close to legs"], "video": "romanian deadlift form" },
+        { "name": "Rear-foot elevated split squat", "sets": "2", "reps": "10/side", "cues": ["Front shin near vertical", "Drop the back knee straight down", "Control the descent"], "video": "bulgarian split squat form" },
+        { "name": "Calf raise", "sets": "2", "reps": "12", "cues": ["Full range", "Pause at the top", "Lower slowly"], "video": "standing calf raise form" }
+      ],
+      "power": "Pogo hops 3×10 (low-intensity intro)",
+      "conditioning": "—",
+      "mobility": "Hip + ankle 8min"
+    },
+    {
+      "day": "Day 2 — Upper + Core",
+      "focus": "Push/pull balance + trunk",
+      "warmup": "Band shoulder prep, scap activation",
+      "exercises": [
+        { "name": "Bench / DB press", "sets": "3", "reps": "8", "cues": ["Shoulder blades back & down", "Lower to mid-chest", "Drive through feet"], "video": "dumbbell bench press form" },
+        { "name": "Pull-up / lat pulldown", "sets": "3", "reps": "8", "cues": ["Chest up", "Pull elbows to ribs", "Control the negative"], "video": "lat pulldown proper form" },
+        { "name": "1-arm DB row", "sets": "3", "reps": "10/side", "cues": ["Flat back", "Row to your hip", "No torso twist"], "video": "single arm dumbbell row form" },
+        { "name": "Wrist/forearm prehab", "sets": "2", "reps": "12", "cues": ["Light & controlled", "Full range both directions", "Important for épée wrist"], "video": "wrist forearm strengthening" },
+        { "name": "Pallof press + dead bug", "sets": "3", "reps": "10", "cues": ["Resist the rotation", "Ribs down", "Breathe steadily"], "video": "pallof press and dead bug" }
+      ],
+      "power": "Med-ball chest pass 3×5",
+      "conditioning": "—",
+      "mobility": "T-spine + shoulders 8min"
+    },
+    {
+      "day": "Day 3 — Power + Full body",
+      "focus": "Explosive intro + total-body strength",
+      "warmup": "Dynamic + low plyo prep",
+      "exercises": [
+        { "name": "Trap-bar deadlift", "sets": "3", "reps": "5", "cues": ["Brace hard", "Push the floor away", "Hips & shoulders rise together"], "video": "trap bar deadlift form" },
+        { "name": "Broad jump", "sets": "4", "reps": "3", "cues": ["Big arm swing", "Explode forward", "Land soft & stick it"], "video": "standing broad jump technique" },
+        { "name": "Lateral bound", "sets": "3", "reps": "4/side", "cues": ["Push off the outside leg", "Stick & hold the landing", "Stay controlled"], "video": "lateral bound skater jump" },
+        { "name": "DB push press", "sets": "3", "reps": "6", "cues": ["Quick dip & drive with legs", "Punch DBs overhead", "Brace core"], "video": "dumbbell push press form" },
+        { "name": "Nordic / hamstring eccentric", "sets": "2", "reps": "5", "cues": ["Lower as slowly as possible", "Resist the whole way", "Hips stay straight"], "video": "nordic hamstring curl" }
+      ],
+      "power": "Included above (broad/lateral jumps)",
+      "conditioning": "Optional: 6×20m strides",
+      "mobility": "Full-body 8min"
+    },
+    {
+      "day": "Day 4 — Conditioning + Mobility",
+      "focus": "Anaerobic capacity + resilience",
+      "warmup": "Easy bike + mobility",
+      "exercises": [
+        { "name": "Bike/row intervals", "sets": "6", "reps": "20s hard / 90s easy", "cues": ["All-out for 20s", "Easy spin 90s", "Repeat — this trains fencing's energy system"], "video": "anaerobic interval bike workout" },
+        { "name": "Walking lunges", "sets": "3", "reps": "10/side", "cues": ["Long step", "Knee tracks over toe", "Tall torso"], "video": "walking lunge form" },
+        { "name": "Copenhagen plank", "sets": "2", "reps": "20s/side", "cues": ["Top leg on a bench", "Lift hips into line", "Hold steady — groin prevention"], "video": "copenhagen plank" },
+        { "name": "Knee landing drills", "sets": "2", "reps": "8", "cues": ["Land soft & quiet", "Knees out — never cave in", "Absorb through hips"], "video": "landing mechanics knee valgus drill" }
+      ],
+      "power": "—",
+      "conditioning": "Intervals above",
+      "mobility": "Long mobility/stretch 12min"
+    }
+  ],
+  "note": "Template — Claude will replace this with your real periodized block once you go full-time and we have your force-velocity numbers. Fencing sessions get slotted in once lessons start."
+}
