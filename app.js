@@ -181,6 +181,12 @@ function viewEat(){
     </div>
     <div class="section-title">Daily habits</div>
     <div class="card">${habits}</div>
+    <div class="section-title">📸 Snap a meal → AI macros</div>
+    <div class="card">
+      <button class="snap-btn" onclick="snapMeal()">📸 Photo my meal</button>
+      <input type="file" id="mealcam" accept="image/*" capture="environment" style="display:none">
+      <div class="note">Snap your food — it sends the photo to Claude, who estimates calories + protein/carbs/fat and logs it. Estimates from photos are approximate.</div>
+    </div>
     <div class="section-title">Food log</div>
     <div class="card"><div class="field"><label>What I ate today</label>
       <textarea id="food" placeholder="meals, rough amounts...">${esc(log.food||"")}</textarea></div></div>
@@ -225,6 +231,25 @@ function bindInputs(){
   const bw=document.getElementById("bw"); if(bw) bw.onchange=e=>patch(l=>l.bodyweight=e.target.value);
   const felt=document.getElementById("felt"); if(felt) felt.onchange=e=>patch(l=>l.felt=e.target.value);
   const food=document.getElementById("food"); if(food) food.onchange=e=>patch(l=>l.food=e.target.value);
+  const mc=document.getElementById("mealcam"); if(mc) mc.onchange=onMeal;
+}
+
+// ===== snap a meal → share to Claude for macros =====
+function snapMeal(){
+  const inp = document.getElementById("mealcam");
+  if(inp) inp.click();
+}
+async function onMeal(e){
+  const file = e.target.files && e.target.files[0];
+  e.target.value = "";
+  if(!file) return;
+  const text = "Estimate the calories and macros (protein / carbs / fat) in this meal, then log it to my nutrition for today.";
+  if(navigator.canShare && navigator.canShare({ files:[file] })){
+    try { await navigator.share({ files:[file], text, title:"Meal — estimate macros" }); }
+    catch(err){ /* user cancelled share */ }
+  } else {
+    alert("Photo ready. Open a Claude chat, attach this photo, and ask: \"estimate calories + macros.\" (Direct share isn't available on this browser — works on your phone.)");
+  }
 }
 
 // ===== share my day =====
