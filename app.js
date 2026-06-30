@@ -377,7 +377,107 @@ function fallbackCopy(txt){
     try { await navigator.serviceWorker.register("sw.js"); } catch(e){}
   }
 })();
+// ===== Obsidian vault sync (GitHub) — tailored for Daily =====
+// Auto-saves the whole day as daily/<date>.md into calderonator/daily-vault.
+// Hooks into the app's existing saveLog(), so every change syncs (debounced).
+// Token is fine-grained, stored ONLY in this browser's localStorage.
+(function(){
+  const OWNER = "calderonator", REPO = "daily-vault", TKEY = "gh_vault_token";
+  const getTok = () => localStorage.getItem(TKEY);
+  const setTok = t => localStorage.setItem(TKEY, t.trim());
+  const b64    = s => btoa(unescape(encodeURIComponent(s)));   // UTF-8 safe
 
-https://claude.ai/api/organizations/f58489d1-3910-4dc7-a80e-69cfd4c4cb89/files/56e9865e-31fd-46f8-a7a9-6ae1245303ce/contents
+  function dayMarkdown(){
+    const log = getLog(), t = DATA.today, n = DATA.nutrition, date = todayStr();
+    const tot = log.totals || {};
+    const fm = [
+      "---", "date: " + date,
+      log.bodyweight ? ("bodyweight_kg: " + log.bodyweight) : null,
+      "calories: "  + Math.round(tot.calories || 0),
+      "protein_g: " + Math.round(tot.protein  || 0),
+      "carbs_g: "   + Math.round(tot.carbs    || 0),
+      "fat_g: "     + Math.round(tot.fat      || 0),
+      "---", ""
+    ].filter(x => x !== null).join("\n");
 
-https://claude.ai/api/organizations/f58489d1-3910-4dc7-a80e-69cfd4c4cb89/files/deb29518-5868-4471-9781-5e4b4e05aab8/contents
+    let out = fm + "# " + date + "\n";
+    if (log.felt) out += "\nFeel/energy: " + log.felt + "\n";
+
+    const meals = log.meals || [];
+    if (meals.length){
+      out += "\n## Meals\n";
+      meals.forEach((m, i) => {
+        out += `\n### Meal ${i+1} — ${Math.round(m.calories||0)} kcal\n`;
+        if (m.items && m.items.length) out += m.items.join(", ") + "\n";
+        out += `- Protein: ${Math.round(m.protein||0)} g\n- Carbs: ${Math.round(m.carbs||0)} g\n- Fat: ${Math.round(m.fat||0)} g\n`;
+      });
+      out += `\n## Totals\n- Calories: ${Math.round(tot.calories||0)}\n- Protein: ${Math.round(tot.protein||0)} g\n- Carbs: ${Math.round(tot.carbs||0)} g\n- Fat: ${Math.round(tot.fat||0)} g\n`;
+    }
+
+    const todos = (t?.todos||[]).map(td => `- [${(log.todos?.[td.id] ?? td.done) ? "x":" "}] ${td.text}`);
+    if (todos.length) out += "\n## To-dos\n" + todos.join("\n") + "\n";
+
+    const lifts = Object.entries(log.lifts||{}).filter(([,v]) => v && v.trim());
+    if (lifts.length) out += "\n## Lifts\n" + lifts.map(([k,v]) => `- ${k}: ${v}`).join("\n") + "\n";
+
+    const habits = (n?.habits||[]).map((h,i) => `- [${log.habits?.[i] ? "x":" "}] ${h}`);
+    if (habits.length) out += "\n## Nutrition habits\n" + habits.join("\n") + "\n";
+
+    if (log.food) out += "\n## Food notes\n" + log.food + "\n";
+    return out;
+  }
+
+  async function push(){
+    const tok = getTok();
+    if (!tok){ setStatus("connect"); return; }
+    const path = `daily/${todayStr()}.md`;
+    const url  = `https://api.github.com/repos/${OWNER}/${REPO}/contents/${path}`;
+    const headers = { Authorization: "Bearer " + tok, Accept: "application/vnd.github+json" };
+    setStatus("syncing");
+    try {
+      let sha;
+      const head = await fetch(url, { headers });
+      if (head.status === 401){ localStorage.removeItem(TKEY); setStatus("connect"); alert("Vault token rejected — tap the chip to reconnect."); return; }
+      if (head.ok) sha = (await head.json()).sha;
+      const res = await fetch(url, {
+        method: "PUT",
+        headers: { ...headers, "Content-Type": "application/json" },
+        body: JSON.stringify({ message: `Update ${path}`, content: b64(dayMarkdown()), ...(sha ? { sha } : {}) })
+      });
+      if (!res.ok){ setStatus("error"); console.error("vault push failed:", await res.text()); return; }
+      setStatus("ok");
+    } catch(e){ setStatus("error"); console.error(e); }
+  }
+
+  let debT;
+  function scheduleSync(){ if (!getTok()) return; clearTimeout(debT); debT = setTimeout(push, 3000); }
+  const _saveLog = window.saveLog;
+  window.saveLog = function(log){ _saveLog(log); scheduleSync(); };
+
+  let chip;
+  function setStatus(s){
+    if (!chip) return;
+    chip.textContent = { connect:"☁ Connect vault", syncing:"☁ Syncing…", ok:"☁ Synced ✓", error:"⚠ Sync failed — tap to retry" }[s] || "☁ Connect vault";
+    chip.dataset.state = s;
+  }
+  function onChip(){
+    if (!getTok()){
+      const t = prompt("Paste your GitHub fine-grained token for daily-vault (Contents: Read/Write).\nStored only on this device.");
+      if (t && t.trim()){ setTok(t); push(); }
+      return;
+    }
+    push();
+  }
+  function mountChip(){
+    chip = document.createElement("button");
+    chip.id = "vault-chip";
+    chip.style.cssText = "position:fixed;right:12px;bottom:78px;z-index:999;border:none;border-radius:18px;padding:8px 14px;font-size:13px;font-weight:600;background:#1f2937;color:#fff;box-shadow:0 2px 8px rgba(0,0,0,.3);cursor:pointer";
+    chip.onclick = onChip;
+    document.body.appendChild(chip);
+    setStatus(getTok() ? "ok" : "connect");
+  }
+  if (document.readyState !== "loading") mountChip();
+  else document.addEventListener("DOMContentLoaded", mountChip);
+
+  window.Vault = { push, dayMarkdown };
+})();
