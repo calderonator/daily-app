@@ -114,6 +114,184 @@ function viewToday(){
     ${t.note?`<div class="note">${esc(t.note)}</div>`:""}`;
 }
 
+// ===== set logger (scroll wheels) =====
+const LIFTS = {};                 // working sets per exercise: name -> [{w,r}]
+const LIFTUI = { sel:{}, manual:{} };
+const ITEM_W = 56;
+
+function exByName(name){
+  for(const d of (DATA.plan?.days||[])) for(const ex of (d.exercises||[])) if(ex.name===name) return ex;
+  return { name };
+}
+
+// Per-exercise weight/rep estimate (kg) for a ~73kg returning athlete in a base block.
+// All editable — these just center the wheel on a sensible starting point.
+function exConfig(ex){
+  const n = (ex.name||"").toLowerCase();
+  const SPECIAL = ["force-velocity","jump","bound","pogo","nordic","copenhagen",
+                   "plank","landing","interval","pallof","dead bug","strides","mobility"];
+  if(SPECIAL.some(k=>n.includes(k))) return { kind:"special" };
+  let wDef=20, wMax=100, wStep=2.5;
+  const S=(d,mx,st)=>{ wDef=d; wMax=mx; wStep=st; };
+  if(/romanian|rdl/.test(n))                 S(50,180,5);
+  else if(/trap|deadlift/.test(n))           S(70,220,5);
+  else if(/goblet|back squat|squat/.test(n)) S(40,180,2.5);
+  else if(/split squat|bulgarian/.test(n))   S(14,50,2);
+  else if(/calf/.test(n))                     S(40,160,5);
+  else if(/push press/.test(n))              S(18,70,2);
+  else if(/bench|db press|press/.test(n))    S(20,80,2.5);
+  else if(/pulldown|pull-?up|lat/.test(n))   S(45,120,2.5);
+  else if(/row/.test(n))                      S(24,60,2);
+  else if(/wrist|forearm/.test(n))           S(5,25,1);
+  else if(/lunge/.test(n))                    S(0,40,2);   // often bodyweight
+  const rDef = parseInt(ex.reps) || 8;
+  return { kind:"weighted", wDef, wMax, wStep, rDef, rMin:1, rMax:20 };
+}
+
+const fmtW = w => (w%1===0 ? String(w) : w.toFixed(1));
+const setLabel = s => (s.w>0 ? fmtW(s.w) : "BW") + "×" + s.r;
+
+function serializeSets(sets){ return sets.map(setLabel).join(", "); }
+function parseSets(str){
+  const out=[]; const re=/([\d.]+|bw)\s*[x×]\s*(\d+)/gi; let m;
+  while((m=re.exec(str||""))) out.push({ w: m[1].toLowerCase()==="bw"?0:+m[1], r:+m[2] });
+  return out;
+}
+
+function getSets(ex){
+  const key=ex.name, cfg=exConfig(ex), log=getLog();
+  if(LIFTS[key]) return LIFTS[key];
+  let sets = (log.liftsData?.[key]?.map(s=>({w:+s.w||0, r:+s.r||0}))) ||
+             (log.lifts?.[key] ? parseSets(log.lifts[key]) : null);
+  if(!sets || !sets.length){
+    const n = parseInt(ex.sets) || 3;
+    sets = Array.from({length:n}, ()=>({ w:cfg.wDef, r:cfg.rDef }));
+  }
+  LIFTS[key]=sets; return sets;
+}
+
+let saveT;
+function saveSets(key){
+  clearTimeout(saveT);
+  saveT = setTimeout(()=>{
+    patch(l=>{
+      l.liftsData = l.liftsData||{}; l.liftsData[key]=LIFTS[key];
+      l.lifts     = l.lifts||{};     l.lifts[key]=serializeSets(LIFTS[key]);
+    });
+  }, 250);
+}
+
+function wheelValues(kind,cfg){
+  if(kind==="r"){ const a=[]; for(let v=cfg.rMin;v<=cfg.rMax;v++) a.push(v); return a; }
+  const a=[]; for(let v=0;v<=cfg.wMax+1e-9;v+=cfg.wStep) a.push(+v.toFixed(2)); return a;
+}
+const wheelLabel = (kind,v)=> kind==="w" ? (v===0?"BW":fmtW(v)) : String(v);
+const nearestIdx = (arr,v)=> arr.reduce((bi,x,i)=> Math.abs(x-v)<Math.abs(arr[bi]-v)?i:bi, 0);
+
+function wheelHTML(kind,cfg){
+  const vals = wheelValues(kind,cfg);
+  const items = vals.map(v=>`<button class="wheel-item" data-v="${v}">${wheelLabel(kind,v)}</button>`).join("");
+  return `<div class="wheel-col">
+    <div class="wheel-cap">${kind==="w"?"Weight (kg)":"Reps"}</div>
+    <div class="stepper">
+      <button class="step" data-kind="${kind}" data-d="-1">−</button>
+      <div class="wheel" data-kind="${kind}">
+        <div class="wheel-center"></div>
+        <div class="wheel-track"><div class="wheel-pad"></div>${items}<div class="wheel-pad"></div></div>
+      </div>
+      <button class="step" data-kind="${kind}" data-d="1">＋</button>
+    </div>
+  </div>`;
+}
+
+function liftEditorHTML(ex){
+  const key=ex.name, cfg=exConfig(ex);
+  if(cfg.kind==="special" || LIFTUI.manual[key]){
+    const val = getLog().lifts?.[key] || "";
+    return `<input type="text" class="lift-manual" data-lift="${esc(key)}" value="${esc(val)}" placeholder="log e.g. 80x5, 85x5">
+      ${cfg.kind!=="special" ? `<div class="lift-actions"><span></span><button class="type-toggle" data-mode="wheel">↩ Use wheels</button></div>` : ""}`;
+  }
+  const sets = getSets(ex);
+  const sel  = Math.min(LIFTUI.sel[key] ?? 0, sets.length-1);
+  LIFTUI.sel[key]=sel;
+  const chips = sets.map((s,i)=>`<button class="set-chip ${i===sel?"sel":""}" data-set="${i}">${setLabel(s)}</button>`).join("")
+    + `<button class="set-add">＋ set</button>`;
+  return `<div class="lift" data-wrap2="${esc(key)}">
+    <div class="set-chips">${chips}</div>
+    <div class="wheels">${wheelHTML("w",cfg)}${wheelHTML("r",cfg)}</div>
+    <div class="lift-actions">
+      ${sets.length>1 ? `<button class="set-del">🗑 remove set ${sel+1}</button>` : `<span></span>`}
+      <button class="type-toggle" data-mode="manual">✎ Type manually</button>
+    </div>
+  </div>`;
+}
+
+function setWheel(wheel, idx){ wheel.scrollTo({ left: idx*ITEM_W, behavior:"smooth" }); }
+function markOn(items, idx){ items.forEach((it,i)=>it.classList.toggle("on", i===idx)); }
+
+function initOneLift(wrap){
+  const key = wrap.dataset.wrap, ex = exByName(key), cfg = exConfig(ex);
+  if(cfg.kind==="special" || LIFTUI.manual[key]){
+    const tog = wrap.querySelector(".type-toggle");
+    if(tog) tog.onclick = ()=>{ LIFTUI.manual[key]=false; renderLiftBlock(key); };
+    return;
+  }
+  const sets = getSets(ex);
+  const sel  = LIFTUI.sel[key] ?? 0;
+
+  wrap.querySelectorAll(".wheel").forEach(wheel=>{
+    const kind  = wheel.dataset.kind;
+    const items = [...wheel.querySelectorAll(".wheel-item")];
+    const vals  = items.map(it=>+it.dataset.v);
+    const cur   = kind==="w" ? sets[sel].w : sets[sel].r;
+    let idx = vals.indexOf(cur); if(idx<0) idx = nearestIdx(vals,cur);
+    requestAnimationFrame(()=>{ wheel.scrollLeft = idx*ITEM_W; markOn(items, idx); });
+    let t;
+    wheel.addEventListener("scroll", ()=>{
+      const i = Math.max(0, Math.min(vals.length-1, Math.round(wheel.scrollLeft/ITEM_W)));
+      markOn(items, i);
+      clearTimeout(t);
+      t = setTimeout(()=>setVal(key, kind, vals[i]), 90);
+    });
+    items.forEach((it,i)=> it.onclick = ()=> setWheel(wheel, i));
+  });
+
+  wrap.querySelectorAll(".step").forEach(b=> b.onclick = ()=>{
+    const wheel = wrap.querySelector(`.wheel[data-kind="${b.dataset.kind}"]`);
+    const n = wheel.querySelectorAll(".wheel-item").length;
+    const i = Math.max(0, Math.min(n-1, Math.round(wheel.scrollLeft/ITEM_W) + (+b.dataset.d)));
+    setWheel(wheel, i);
+  });
+
+  wrap.querySelectorAll(".set-chip").forEach(c=> c.onclick = ()=>{ LIFTUI.sel[key]=+c.dataset.set; renderLiftBlock(key); });
+  const add = wrap.querySelector(".set-add");
+  if(add) add.onclick = ()=>{ const s=getSets(ex); const last=s[s.length-1]; s.push({w:last.w,r:last.r}); LIFTUI.sel[key]=s.length-1; saveSets(key); renderLiftBlock(key); };
+  const del = wrap.querySelector(".set-del");
+  if(del) del.onclick = ()=>{ const s=getSets(ex); if(s.length<=1) return; s.splice(LIFTUI.sel[key],1); LIFTUI.sel[key]=Math.max(0,(LIFTUI.sel[key]||0)-1); saveSets(key); renderLiftBlock(key); };
+  const tog = wrap.querySelector(".type-toggle");
+  if(tog) tog.onclick = ()=>{ LIFTUI.manual[key]=true; renderLiftBlock(key); };
+}
+
+function setVal(key, kind, v){
+  const ex=exByName(key), sets=getSets(ex), sel=LIFTUI.sel[key]??0;
+  if(kind==="w") sets[sel].w=v; else sets[sel].r=v;
+  const wrap=document.querySelector(`.lift-wrap[data-wrap="${key}"]`);
+  const chip=wrap?.querySelector(`.set-chip[data-set="${sel}"]`);
+  if(chip) chip.textContent=setLabel(sets[sel]);
+  saveSets(key);
+}
+
+function renderLiftBlock(key){
+  const wrap=document.querySelector(`.lift-wrap[data-wrap="${key}"]`);
+  if(!wrap) return;
+  wrap.innerHTML = liftEditorHTML(exByName(key));
+  const mc = wrap.querySelector("[data-lift]"); // re-wire manual field if present
+  if(mc) mc.onchange = e=>{ delete LIFTS[key]; patch(l=>{ l.lifts=l.lifts||{}; l.lifts[key]=e.target.value; if(l.liftsData) delete l.liftsData[key]; }); };
+  initOneLift(wrap);
+}
+
+function initLiftEditors(){ document.querySelectorAll(".lift-wrap").forEach(initOneLift); }
+
 // ===== TRAIN =====
 function viewTrain(){
   const p = DATA.plan, log = getLog();
@@ -122,7 +300,6 @@ function viewTrain(){
   const days = (p.days||[]).map(d=>{
     const exs = (d.exercises||[]).map(ex=>{
       const key = ex.name;
-      const val = log.lifts?.[key] || "";
       const tgt = [ex.sets&&`${ex.sets} sets`, ex.reps&&`${ex.reps} reps`, ex.target].filter(Boolean).join(" · ");
       const cues = (ex.cues||[]).map(c=>`<li>${esc(c)}</li>`).join("");
       const q = encodeURIComponent(ex.video || (ex.name+" technique"));
@@ -134,7 +311,7 @@ function viewTrain(){
       return `<div class="ex">
         <div class="ex-name">${esc(ex.name)}</div>
         <div class="ex-target">${esc(tgt)}</div>
-        <input type="text" data-lift="${esc(key)}" value="${esc(val)}" placeholder="log: 80x5, 85x5">
+        <div class="lift-wrap" data-wrap="${esc(key)}">${liftEditorHTML(ex)}</div>
         ${how}
         ${ex.notes?`<div class="ex-note">${esc(ex.notes)}</div>`:""}
       </div>`;
@@ -227,8 +404,11 @@ function bindInputs(){
     render();
   });
   document.querySelectorAll("[data-lift]").forEach(i=>i.onchange=e=>{
-    patch(l=>{ l.lifts=l.lifts||{}; l.lifts[e.target.dataset.lift]=e.target.value; });
+    const k=e.target.dataset.lift;
+    delete LIFTS[k];
+    patch(l=>{ l.lifts=l.lifts||{}; l.lifts[k]=e.target.value; if(l.liftsData) delete l.liftsData[k]; });
   });
+  if(TAB==="train") initLiftEditors();
   const bw=document.getElementById("bw"); if(bw) bw.onchange=e=>patch(l=>l.bodyweight=e.target.value);
   const felt=document.getElementById("felt"); if(felt) felt.onchange=e=>patch(l=>l.felt=e.target.value);
   const food=document.getElementById("food"); if(food) food.onchange=e=>patch(l=>l.food=e.target.value);
