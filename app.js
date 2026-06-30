@@ -377,3 +377,7 @@ function fallbackCopy(txt){
     try { await navigator.serviceWorker.register("sw.js"); } catch(e){}
   }
 })();
+
+https://claude.ai/api/organizations/f58489d1-3910-4dc7-a80e-69cfd4c4cb89/files/56e9865e-31fd-46f8-a7a9-6ae1245303ce/contents
+
+https://claude.ai/api/organizations/f58489d1-3910-4dc7-a80e-69cfd4c4cb89/files/deb29518-5868-4471-9781-5e4b4e05aab8/contents
