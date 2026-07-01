@@ -133,17 +133,21 @@ function exConfig(ex){
   if(SPECIAL.some(k=>n.includes(k))) return { kind:"special" };
   let wDef=20, wMax=100, wStep=2.5;
   const S=(d,mx,st)=>{ wDef=d; wMax=mx; wStep=st; };
-  if(/romanian|rdl/.test(n))                 S(50,180,5);
-  else if(/trap|deadlift/.test(n))           S(70,220,5);
-  else if(/goblet|back squat|squat/.test(n)) S(40,180,2.5);
-  else if(/split squat|bulgarian/.test(n))   S(14,50,2);
-  else if(/calf/.test(n))                     S(40,160,5);
-  else if(/push press/.test(n))              S(18,70,2);
-  else if(/bench|db press|press/.test(n))    S(20,80,2.5);
-  else if(/pulldown|pull-?up|lat/.test(n))   S(45,120,2.5);
-  else if(/row/.test(n))                      S(24,60,2);
-  else if(/wrist|forearm/.test(n))           S(5,25,1);
-  else if(/lunge/.test(n))                    S(0,40,2);   // often bodyweight
+  if(/romanian|rdl/.test(n))                    S(50,180,5);
+  else if(/trap|deadlift/.test(n))              S(70,220,5);
+  else if(/goblet/.test(n))                     S(24,120,2);
+  else if(/back squat|squat/.test(n))           S(40,180,2.5);
+  else if(/split squat|bulgarian/.test(n))      S(14,50,2);
+  else if(/step-?up/.test(n))                   S(12,60,2);
+  else if(/calf/.test(n))                       S(30,160,5);
+  else if(/push press/.test(n))                 S(18,70,2);
+  else if(/shoulder press|overhead|ohp/.test(n))S(16,60,2);
+  else if(/lateral raise|side raise/.test(n))   S(8,30,1);
+  else if(/bench|db press|press/.test(n))       S(20,80,2.5);
+  else if(/pulldown|pull-?up|lat\b/.test(n))    S(45,120,2.5);
+  else if(/row/.test(n))                        S(24,60,2);
+  else if(/wrist|forearm/.test(n))              S(5,25,1);
+  else if(/lunge/.test(n))                      S(0,40,2);   // often bodyweight
   const rDef = parseInt(ex.reps) || 8;
   return { kind:"weighted", wDef, wMax, wStep, rDef, rMin:1, rMax:20 };
 }

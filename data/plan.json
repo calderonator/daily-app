@@ -1,73 +1,62 @@
 {
-  "phase": "Re-entry / Base (template)",
-  "week": "Activates ~Aug 15, 2026",
-  "startDate": "2026-08-15",
+  "phase": "Hotel Trip — Dumbbell Maintenance",
+  "week": "Jul 1–5, 2026 · fly home Jul 6",
+  "startDate": "2026-07-01",
   "principles": [
-    "Day 1: force-velocity test + movement screen (set baselines)",
-    "Ramp gradually — no load spikes coming off time off (Gabbett)",
-    "Quality reps, full recovery between sets",
-    "Sleep + creatine already dialed in"
+    "Goal: stay sharp and move well on the road — not to peak",
+    "DBs + bench + treadmill only; leave 2 reps in reserve (don't grind)",
+    "Rotate A → B → C → A → B across the trip",
+    "40–45 min. Short on time? Do the first 3 lifts + a treadmill finisher",
+    "Protect sleep & hydration while traveling — they matter more than any set"
   ],
   "days": [
     {
-      "day": "Day 1 — Assess + Lower",
-      "focus": "Baselines + foundational strength",
-      "warmup": "Bike 5min, dynamic mobility, FIFA 11+ style activation",
+      "day": "A — Full Body (DB)",
+      "focus": "Total-body strength, minimal kit",
+      "warmup": "Treadmill brisk walk 5 min + arm circles, bodyweight squats, hip openers",
       "exercises": [
-        { "name": "Force-velocity test (loaded jumps)", "sets": "5–6 loads", "reps": "2", "target": "baseline", "cues": ["Max intent every jump", "Loads from bodyweight → heavy", "Film side-on with MyJump2"], "video": "MyJump2 force velocity profile test", "notes": "→ Morin spreadsheet" },
-        { "name": "Goblet / Back squat", "sets": "3", "reps": "8", "cues": ["Brace core before each rep", "Knees track over toes", "Hip crease below knee"], "video": "goblet squat proper form" },
-        { "name": "Romanian deadlift", "sets": "3", "reps": "8", "cues": ["Hinge at the hips", "Soft knees, flat back", "Bar stays close to legs"], "video": "romanian deadlift form" },
-        { "name": "Rear-foot elevated split squat", "sets": "2", "reps": "10/side", "cues": ["Front shin near vertical", "Drop the back knee straight down", "Control the descent"], "video": "bulgarian split squat form" },
-        { "name": "Calf raise", "sets": "2", "reps": "12", "cues": ["Full range", "Pause at the top", "Lower slowly"], "video": "standing calf raise form" }
+        { "name": "DB goblet squat", "sets": "3", "reps": "10", "cues": ["Hold one DB at your chest", "Brace, sit down between the hips", "Full depth, knees track toes"], "video": "dumbbell goblet squat form" },
+        { "name": "DB Romanian deadlift", "sets": "3", "reps": "10", "cues": ["Soft knees, hinge at the hips", "DBs slide down the thighs", "Flat back, squeeze glutes at the top"], "video": "dumbbell romanian deadlift form" },
+        { "name": "DB bench press", "sets": "3", "reps": "10", "cues": ["Shoulder blades back & down", "Lower to mid-chest", "Drive your feet into the floor"], "video": "dumbbell bench press form" },
+        { "name": "1-arm DB row", "sets": "3", "reps": "10/side", "cues": ["Hand & knee on the bench", "Row the DB to your hip", "No torso twist"], "video": "single arm dumbbell row form" },
+        { "name": "DB reverse lunge", "sets": "2", "reps": "8/side", "cues": ["Step back, drop the back knee", "Front shin vertical", "Push through the front heel"], "video": "dumbbell reverse lunge form" },
+        { "name": "Plank", "sets": "3", "reps": "40s", "cues": ["Ribs down, glutes tight", "Straight line head to heels", "Breathe steadily"], "video": "forearm plank proper form" }
       ],
-      "power": "Pogo hops 3×10 (low-intensity intro)",
-      "conditioning": "—",
-      "mobility": "Hip + ankle 8min"
+      "power": "Optional primer: 5 crisp bodyweight squat jumps before squats",
+      "conditioning": "Treadmill: 6×(30s brisk incline / 60s easy)",
+      "mobility": "Hips + shoulders 6 min"
     },
     {
-      "day": "Day 2 — Upper + Core",
-      "focus": "Push/pull balance + trunk",
-      "warmup": "Band shoulder prep, scap activation",
+      "day": "B — Lower + Conditioning",
+      "focus": "Legs + fencing energy system",
+      "warmup": "Treadmill 5 min + leg swings, ankle rocks",
       "exercises": [
-        { "name": "Bench / DB press", "sets": "3", "reps": "8", "cues": ["Shoulder blades back & down", "Lower to mid-chest", "Drive through feet"], "video": "dumbbell bench press form" },
-        { "name": "Pull-up / lat pulldown", "sets": "3", "reps": "8", "cues": ["Chest up", "Pull elbows to ribs", "Control the negative"], "video": "lat pulldown proper form" },
-        { "name": "1-arm DB row", "sets": "3", "reps": "10/side", "cues": ["Flat back", "Row to your hip", "No torso twist"], "video": "single arm dumbbell row form" },
-        { "name": "Wrist/forearm prehab", "sets": "2", "reps": "12", "cues": ["Light & controlled", "Full range both directions", "Important for épée wrist"], "video": "wrist forearm strengthening" },
-        { "name": "Pallof press + dead bug", "sets": "3", "reps": "10", "cues": ["Resist the rotation", "Ribs down", "Breathe steadily"], "video": "pallof press and dead bug" }
-      ],
-      "power": "Med-ball chest pass 3×5",
-      "conditioning": "—",
-      "mobility": "T-spine + shoulders 8min"
-    },
-    {
-      "day": "Day 3 — Power + Full body",
-      "focus": "Explosive intro + total-body strength",
-      "warmup": "Dynamic + low plyo prep",
-      "exercises": [
-        { "name": "Trap-bar deadlift", "sets": "3", "reps": "5", "cues": ["Brace hard", "Push the floor away", "Hips & shoulders rise together"], "video": "trap bar deadlift form" },
-        { "name": "Broad jump", "sets": "4", "reps": "3", "cues": ["Big arm swing", "Explode forward", "Land soft & stick it"], "video": "standing broad jump technique" },
-        { "name": "Lateral bound", "sets": "3", "reps": "4/side", "cues": ["Push off the outside leg", "Stick & hold the landing", "Stay controlled"], "video": "lateral bound skater jump" },
-        { "name": "DB push press", "sets": "3", "reps": "6", "cues": ["Quick dip & drive with legs", "Punch DBs overhead", "Brace core"], "video": "dumbbell push press form" },
-        { "name": "Nordic / hamstring eccentric", "sets": "2", "reps": "5", "cues": ["Lower as slowly as possible", "Resist the whole way", "Hips stay straight"], "video": "nordic hamstring curl" }
-      ],
-      "power": "Included above (broad/lateral jumps)",
-      "conditioning": "Optional: 6×20m strides",
-      "mobility": "Full-body 8min"
-    },
-    {
-      "day": "Day 4 — Conditioning + Mobility",
-      "focus": "Anaerobic capacity + resilience",
-      "warmup": "Easy bike + mobility",
-      "exercises": [
-        { "name": "Bike/row intervals", "sets": "6", "reps": "20s hard / 90s easy", "cues": ["All-out for 20s", "Easy spin 90s", "Repeat — this trains fencing's energy system"], "video": "anaerobic interval bike workout" },
-        { "name": "Walking lunges", "sets": "3", "reps": "10/side", "cues": ["Long step", "Knee tracks over toe", "Tall torso"], "video": "walking lunge form" },
-        { "name": "Copenhagen plank", "sets": "2", "reps": "20s/side", "cues": ["Top leg on a bench", "Lift hips into line", "Hold steady — groin prevention"], "video": "copenhagen plank" },
-        { "name": "Knee landing drills", "sets": "2", "reps": "8", "cues": ["Land soft & quiet", "Knees out — never cave in", "Absorb through hips"], "video": "landing mechanics knee valgus drill" }
+        { "name": "DB Bulgarian split squat", "sets": "3", "reps": "8/side", "cues": ["Back foot on the bench", "Drop straight down", "Front shin near vertical"], "video": "dumbbell bulgarian split squat form" },
+        { "name": "DB Romanian deadlift", "sets": "3", "reps": "10", "cues": ["Hinge at the hips", "DBs stay close to the legs", "Flat back throughout"], "video": "dumbbell romanian deadlift form" },
+        { "name": "DB step-up", "sets": "3", "reps": "8/side", "cues": ["Whole foot on the bench", "Drive through the top leg", "Control the way down"], "video": "dumbbell step up form" },
+        { "name": "DB calf raise", "sets": "3", "reps": "15", "cues": ["Full range", "Pause at the top", "Lower slowly"], "video": "dumbbell calf raise form" },
+        { "name": "Dead bug", "sets": "3", "reps": "8/side", "cues": ["Low back flat on the floor", "Opposite arm & leg reach", "Slow and controlled"], "video": "dead bug core exercise" }
       ],
       "power": "—",
-      "conditioning": "Intervals above",
-      "mobility": "Long mobility/stretch 12min"
+      "conditioning": "Treadmill intervals: 8×(20s hard / 90s easy) — trains fencing's energy system",
+      "mobility": "Ankle + hip 8 min"
+    },
+    {
+      "day": "C — Upper + Core",
+      "focus": "Push / pull + trunk + épée wrist prehab",
+      "warmup": "Light-DB shoulder prep, scap activation",
+      "exercises": [
+        { "name": "DB bench press", "sets": "3", "reps": "10", "cues": ["Blades back & down", "Lower to mid-chest", "Controlled tempo"], "video": "dumbbell bench press form" },
+        { "name": "DB shoulder press", "sets": "3", "reps": "10", "cues": ["Ribs down, brace core", "Press straight overhead", "Don't arch the low back"], "video": "seated dumbbell shoulder press form" },
+        { "name": "1-arm DB row", "sets": "3", "reps": "10/side", "cues": ["Flat back", "Row to your hip", "Squeeze the mid-back"], "video": "single arm dumbbell row form" },
+        { "name": "DB lateral raise", "sets": "2", "reps": "12", "cues": ["Slight elbow bend", "Lead with the elbows", "Control the lower"], "video": "dumbbell lateral raise form" },
+        { "name": "DB wrist/forearm prehab", "sets": "2", "reps": "12", "cues": ["Light DB, wrist curls both directions", "Slow and controlled", "Key for the épée wrist"], "video": "dumbbell wrist curl forearm" },
+        { "name": "Pallof-style anti-rotation press", "sets": "3", "reps": "10/side", "cues": ["Resist the rotation", "Ribs down", "Steady breathing"], "video": "pallof press anti rotation core" }
+      ],
+      "power": "—",
+      "conditioning": "Treadmill easy 10 min, or optional 6×20s strides",
+      "mobility": "T-spine + shoulders 8 min"
     }
   ],
-  "note": "Template — Claude will replace this with your real periodized block once you go full-time and we have your force-velocity numbers. Fencing sessions get slotted in once lessons start."
+  "note": "Travel block — light and movement-focused. Weights are auto-estimated for dumbbells; spin the wheels to match the hotel rack (they often cap ~25–30 kg). Back to your real base plan once you're home."
 }
