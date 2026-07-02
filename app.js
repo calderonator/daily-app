@@ -297,19 +297,24 @@ function initOneLift(wrap){
     const vals  = items.map(it=>+it.dataset.v);
     const cur   = kind==="w" ? toDisp(sets[sel].w) : sets[sel].r;
     let idx = vals.indexOf(cur); if(idx<0) idx = nearestIdx(vals,cur);
-    requestAnimationFrame(()=>{ wheel.scrollLeft = idx*ITEM_W; markOn(items, idx); });
     let t;
+    // Only log once the user actually interacts — never from auto-positioning.
+    ["pointerdown","touchstart","wheel","keydown"].forEach(ev=>
+      wheel.addEventListener(ev, ()=>{ wheel._touched=true; }, {passive:true}));
     wheel.addEventListener("scroll", ()=>{
       const i = Math.max(0, Math.min(vals.length-1, Math.round(wheel.scrollLeft/ITEM_W)));
       markOn(items, i);
+      if(!wheel._touched) return;
       clearTimeout(t);
       t = setTimeout(()=>setVal(key, kind, vals[i]), 90);
     });
-    items.forEach((it,i)=> it.onclick = ()=> setWheel(wheel, i));
+    requestAnimationFrame(()=>{ wheel.scrollLeft = idx*ITEM_W; markOn(items, idx); });
+    items.forEach((it,i)=> it.onclick = ()=>{ wheel._touched=true; setWheel(wheel, i); });
   });
 
   wrap.querySelectorAll(".step").forEach(b=> b.onclick = ()=>{
     const wheel = wrap.querySelector(`.wheel[data-kind="${b.dataset.kind}"]`);
+    wheel._touched = true;
     const n = wheel.querySelectorAll(".wheel-item").length;
     const i = Math.max(0, Math.min(n-1, Math.round(wheel.scrollLeft/ITEM_W) + (+b.dataset.d)));
     setWheel(wheel, i);
