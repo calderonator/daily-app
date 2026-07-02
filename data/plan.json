@@ -4,7 +4,7 @@
   "startDate": "2026-07-01",
   "principles": [
     "Goal: stay sharp and move well on the road — not to peak",
-    "DBs + bench + treadmill only; leave 2 reps in reserve (don't grind)",
+    "Gym: dumbbells, bench, cables, pull-up bar, treadmill; leave 2 reps in reserve",
     "Rotate A → B → C → A → B across the trip",
     "40–45 min. Short on time? Do the first 3 lifts + a treadmill finisher",
     "Protect sleep & hydration while traveling — they matter more than any set"
@@ -19,6 +19,7 @@
         { "name": "DB Romanian deadlift", "sets": "3", "reps": "10", "cues": ["Soft knees, hinge at the hips", "DBs slide down the thighs", "Flat back, squeeze glutes at the top"], "video": "dumbbell romanian deadlift form" },
         { "name": "DB bench press", "sets": "3", "reps": "10", "cues": ["Shoulder blades back & down", "Lower to mid-chest", "Drive your feet into the floor"], "video": "dumbbell bench press form" },
         { "name": "1-arm DB row", "sets": "3", "reps": "10/side", "cues": ["Hand & knee on the bench", "Row the DB to your hip", "No torso twist"], "video": "single arm dumbbell row form" },
+        { "name": "Pull-ups", "sets": "3", "reps": "6", "cues": ["Full hang to start", "Pull chest toward the bar", "Control the way down"], "video": "pull up proper form", "notes": "Use a band or do slow negatives if needed. Add weight once 3×6 is easy." },
         { "name": "DB reverse lunge", "sets": "2", "reps": "8/side", "cues": ["Step back, drop the back knee", "Front shin vertical", "Push through the front heel"], "video": "dumbbell reverse lunge form" },
         { "name": "Plank", "sets": "3", "reps": "40s", "cues": ["Ribs down, glutes tight", "Straight line head to heels", "Breathe steadily"], "video": "forearm plank proper form" }
       ],
@@ -50,7 +51,9 @@
         { "name": "DB shoulder press", "sets": "3", "reps": "10", "cues": ["Ribs down, brace core", "Press straight overhead", "Don't arch the low back"], "video": "seated dumbbell shoulder press form" },
         { "name": "1-arm DB row", "sets": "3", "reps": "10/side", "cues": ["Flat back", "Row to your hip", "Squeeze the mid-back"], "video": "single arm dumbbell row form" },
         { "name": "DB lateral raise", "sets": "2", "reps": "12", "cues": ["Slight elbow bend", "Lead with the elbows", "Control the lower"], "video": "dumbbell lateral raise form" },
+        { "name": "Cable face pull", "sets": "3", "reps": "15", "cues": ["Pull toward your forehead", "Keep the elbows high", "Squeeze the shoulder blades"], "video": "cable face pull form", "notes": "Great for shoulder health + posture." },
         { "name": "DB wrist/forearm prehab", "sets": "2", "reps": "12", "cues": ["Light DB, wrist curls both directions", "Slow and controlled", "Key for the épée wrist"], "video": "dumbbell wrist curl forearm" },
+        { "name": "Hanging knee raise", "sets": "3", "reps": "10", "cues": ["Hang from the bar", "Curl the knees to your chest", "No swinging"], "video": "hanging knee raise form" },
         { "name": "Pallof-style anti-rotation press", "sets": "3", "reps": "10/side", "cues": ["Resist the rotation", "Ribs down", "Steady breathing"], "video": "pallof press anti rotation core" }
       ],
       "power": "—",
@@ -58,5 +61,5 @@
       "mobility": "T-spine + shoulders 8 min"
     }
   ],
-  "note": "Travel block — light and movement-focused. Weights are auto-estimated for dumbbells; spin the wheels to match the hotel rack (they often cap ~25–30 kg). Back to your real base plan once you're home."
+  "note": "Travel block — light and movement-focused. Now using the hotel's cables + pull-up bar too. Weights are auto-estimated; toggle kg/lb up top and spin the wheels to match your gym. Tap ＋ Add exercise on any day to log your own. Back to your real base plan once you're home."
 }

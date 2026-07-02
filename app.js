@@ -121,7 +121,29 @@ const ITEM_W = 56;
 
 function exByName(name){
   for(const d of (DATA.plan?.days||[])) for(const ex of (d.exercises||[])) if(ex.name===name) return ex;
+  const c=getCustom(); for(const day in c) for(const ex of c[day]) if(ex.name===name) return ex;
   return { name };
+}
+
+// ===== custom exercises (stored on this device; survive plan updates) =====
+const CUSTOMKEY = "fc_custom";
+function getCustom(){ try{ return JSON.parse(localStorage.getItem(CUSTOMKEY))||{}; }catch{ return {}; } }
+function saveCustom(c){ localStorage.setItem(CUSTOMKEY, JSON.stringify(c)); }
+const customFor = day => getCustom()[day] || [];
+function addCustomExercise(day){
+  const name=(prompt("New exercise name:")||"").trim(); if(!name) return;
+  const sets=(prompt("Sets?","3")||"3").trim();
+  const reps=(prompt("Reps per set?","10")||"10").trim();
+  const c=getCustom(); c[day]=c[day]||[];
+  if(c[day].some(e=>e.name===name) || (DATA.plan?.days||[]).some(d=>(d.exercises||[]).some(e=>e.name===name))){
+    alert("You already have an exercise with that name."); return;
+  }
+  c[day].push({ name, sets, reps, custom:true }); saveCustom(c); flash(); render();
+}
+function removeCustomExercise(day,name){
+  if(!confirm("Remove "+name+"?")) return;
+  const c=getCustom(); c[day]=(c[day]||[]).filter(e=>e.name!==name); saveCustom(c);
+  delete LIFTS[name]; render();
 }
 
 // Per-exercise weight/rep estimate (kg) for a ~73kg returning athlete in a base block.
@@ -143,8 +165,12 @@ function exConfig(ex){
   else if(/push press/.test(n))                 S(18,70,2);
   else if(/shoulder press|overhead|ohp/.test(n))S(16,60,2);
   else if(/lateral raise|side raise/.test(n))   S(8,30,1);
+  else if(/face pull/.test(n))                  S(12,45,2.5);
+  else if(/pulldown/.test(n))                   S(45,120,2.5);
+  else if(/pull-?up|chin-?up/.test(n))          S(0,40,2.5);   // bodyweight + optional added
+  else if(/cable/.test(n))                      S(16,70,2.5);  // cable stack
   else if(/bench|db press|press/.test(n))       S(20,80,2.5);
-  else if(/pulldown|pull-?up|lat\b/.test(n))    S(45,120,2.5);
+  else if(/knee raise|leg raise|hanging/.test(n))S(0,30,2.5);  // bodyweight + optional
   else if(/row/.test(n))                        S(24,60,2);
   else if(/wrist|forearm/.test(n))              S(5,25,1);
   else if(/lunge/.test(n))                      S(0,40,2);   // often bodyweight
@@ -153,12 +179,29 @@ function exConfig(ex){
 }
 
 const fmtW = w => (w%1===0 ? String(w) : w.toFixed(1));
-const setLabel = s => (s.w>0 ? fmtW(s.w) : "BW") + "×" + s.r;
 
-function serializeSets(sets){ return sets.map(setLabel).join(", "); }
+// Weights are STORED in kg (canonical). Display converts to the chosen unit,
+// so toggling kg/lb never corrupts already-logged data.
+const UNITKEY = "fc_unit", LBPERKG = 2.20462;
+const getUnit = () => localStorage.getItem(UNITKEY) === "lb" ? "lb" : "kg";
+function switchUnit(u){ localStorage.setItem(UNITKEY, u); render(); }
+const toDisp = kg => getUnit()==="lb" ? kg*LBPERKG : kg;   // kg -> display value
+const toKg   = v  => getUnit()==="lb" ? v/LBPERKG : v;     // display value -> kg
+const dispW  = kg => getUnit()==="lb" ? String(Math.round(toDisp(kg))) : fmtW(+toDisp(kg).toFixed(1));
+
+const setLabel = s => (s.w>0 ? dispW(s.w) : "BW") + "×" + s.r;
+
+function serializeSets(sets){
+  const u = getUnit();
+  return sets.map(s => (s.w>0 ? dispW(s.w)+u : "BW") + "×" + s.r).join(", ");
+}
 function parseSets(str){
-  const out=[]; const re=/([\d.]+|bw)\s*[x×]\s*(\d+)/gi; let m;
-  while((m=re.exec(str||""))) out.push({ w: m[1].toLowerCase()==="bw"?0:+m[1], r:+m[2] });
+  const out=[]; const re=/([\d.]+|bw)\s*(kg|lb)?\s*[x×]\s*(\d+)/gi; let m;
+  while((m=re.exec(str||""))){
+    let w = m[1].toLowerCase()==="bw" ? 0 : +m[1];
+    if(m[2] && m[2].toLowerCase()==="lb") w = w/LBPERKG;   // store back as kg
+    out.push({ w, r:+m[3] });
+  }
   return out;
 }
 
@@ -187,6 +230,11 @@ function saveSets(key){
 
 function wheelValues(kind,cfg){
   if(kind==="r"){ const a=[]; for(let v=cfg.rMin;v<=cfg.rMax;v++) a.push(v); return a; }
+  if(getUnit()==="lb"){                       // weight wheel values in lb
+    const maxLb = Math.ceil(cfg.wMax*LBPERKG/5)*5;
+    const step  = cfg.wStep<=2 ? 2.5 : 5;
+    const a=[]; for(let v=0; v<=maxLb+1e-9; v+=step) a.push(+v.toFixed(1)); return a;
+  }
   const a=[]; for(let v=0;v<=cfg.wMax+1e-9;v+=cfg.wStep) a.push(+v.toFixed(2)); return a;
 }
 const wheelLabel = (kind,v)=> kind==="w" ? (v===0?"BW":fmtW(v)) : String(v);
@@ -196,7 +244,7 @@ function wheelHTML(kind,cfg){
   const vals = wheelValues(kind,cfg);
   const items = vals.map(v=>`<button class="wheel-item" data-v="${v}">${wheelLabel(kind,v)}</button>`).join("");
   return `<div class="wheel-col">
-    <div class="wheel-cap">${kind==="w"?"Weight (kg)":"Reps"}</div>
+    <div class="wheel-cap">${kind==="w"?`Weight (${getUnit()})`:"Reps"}</div>
     <div class="stepper">
       <button class="step" data-kind="${kind}" data-d="-1">−</button>
       <div class="wheel" data-kind="${kind}">
@@ -247,7 +295,7 @@ function initOneLift(wrap){
     const kind  = wheel.dataset.kind;
     const items = [...wheel.querySelectorAll(".wheel-item")];
     const vals  = items.map(it=>+it.dataset.v);
-    const cur   = kind==="w" ? sets[sel].w : sets[sel].r;
+    const cur   = kind==="w" ? toDisp(sets[sel].w) : sets[sel].r;
     let idx = vals.indexOf(cur); if(idx<0) idx = nearestIdx(vals,cur);
     requestAnimationFrame(()=>{ wheel.scrollLeft = idx*ITEM_W; markOn(items, idx); });
     let t;
@@ -278,7 +326,7 @@ function initOneLift(wrap){
 
 function setVal(key, kind, v){
   const ex=exByName(key), sets=getSets(ex), sel=LIFTUI.sel[key]??0;
-  if(kind==="w") sets[sel].w=v; else sets[sel].r=v;
+  if(kind==="w") sets[sel].w=toKg(v); else sets[sel].r=v;
   const wrap=document.querySelector(`.lift-wrap[data-wrap="${key}"]`);
   const chip=wrap?.querySelector(`.set-chip[data-set="${sel}"]`);
   if(chip) chip.textContent=setLabel(sets[sel]);
@@ -301,8 +349,10 @@ function viewTrain(){
   const p = DATA.plan, log = getLog();
   if(!p) return `<div class="empty">Couldn't load training plan.</div>`;
   const principles = (p.principles||[]).map(x=>`<li>${esc(x)}</li>`).join("");
+  const jsq = s => String(s).replace(/\\/g,"\\\\").replace(/'/g,"\\'");
   const days = (p.days||[]).map(d=>{
-    const exs = (d.exercises||[]).map(ex=>{
+    const exList = [...(d.exercises||[]), ...customFor(d.day)];
+    const exs = exList.map(ex=>{
       const key = ex.name;
       const tgt = [ex.sets&&`${ex.sets} sets`, ex.reps&&`${ex.reps} reps`, ex.target].filter(Boolean).join(" · ");
       const cues = (ex.cues||[]).map(c=>`<li>${esc(c)}</li>`).join("");
@@ -313,8 +363,8 @@ function viewTrain(){
         <a class="demo-link" href="https://www.youtube.com/results?search_query=${q}" target="_blank" rel="noopener">▶ Watch demo</a>
       </details>` : "";
       return `<div class="ex">
-        <div class="ex-name">${esc(ex.name)}</div>
-        <div class="ex-target">${esc(tgt)}</div>
+        <div class="ex-name">${esc(ex.name)}${ex.custom?`<button class="rm-ex" onclick="removeCustomExercise('${jsq(d.day)}','${jsq(ex.name)}')" aria-label="remove">✕</button>`:""}</div>
+        <div class="ex-target">${esc(tgt)}${ex.custom?" · custom":""}</div>
         <div class="lift-wrap" data-wrap="${esc(key)}">${liftEditorHTML(ex)}</div>
         ${how}
         ${ex.notes?`<div class="ex-note">${esc(ex.notes)}</div>`:""}
@@ -328,12 +378,21 @@ function viewTrain(){
     return `<div class="day-head">${esc(d.day)}<div class="day-focus">${esc(d.focus||"")}</div></div>
       <div class="card" style="border-radius:0 0 10px 10px;margin-top:0">
         ${d.warmup?`<div class="note" style="margin-bottom:8px"><b>Warmup:</b> ${esc(d.warmup)}</div>`:""}
-        ${exs}${extras}</div>`;
+        ${exs}
+        <button class="add-ex" onclick="addCustomExercise('${jsq(d.day)}')">＋ Add exercise</button>
+        ${extras}</div>`;
   }).join("");
   return `
     <div class="hero">
       <div class="hero-title">${esc(p.phase||"Training")}</div>
       <div class="hero-sub">${esc(p.week||"")}</div>
+    </div>
+    <div class="unit-row">
+      <span class="unit-lbl">Weight units</span>
+      <div class="unit-toggle">
+        <button class="unit-btn ${getUnit()==="kg"?"on":""}" onclick="switchUnit('kg')">kg</button>
+        <button class="unit-btn ${getUnit()==="lb"?"on":""}" onclick="switchUnit('lb')">lb</button>
+      </div>
     </div>
     ${principles?`<div class="section-title">Principles</div><div class="card"><ul style="margin-left:16px;font-size:13px;line-height:1.6">${principles}</ul></div>`:""}
     <div class="section-title">Sessions</div>
