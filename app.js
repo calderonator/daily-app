@@ -70,6 +70,30 @@ function render(){
   bindInputs();
 }
 
+// ===== readiness check-in (morning autoregulation) =====
+const RKEYS = [
+  { k:"sleep",  lbl:"Sleep quality" },
+  { k:"energy", lbl:"Energy" },
+  { k:"fresh",  lbl:"Muscle freshness" },
+];
+function setReadiness(k, v){
+  patch(l=>{ l.readiness = l.readiness||{}; l.readiness[k]=v; });
+  render();
+}
+function readinessVerdict(r){
+  if(!r || RKEYS.some(x=>!r[x.k])) return null;
+  const total = RKEYS.reduce((a,x)=>a+r[x.k],0);
+  if(total>=12) return { cls:"green", txt:"🟢 Green — train today's session as planned." };
+  if(total>=9)  return { cls:"amber", txt:"🟡 Amber — cap everything at RPE 7 and trim a set if you need to." };
+  return { cls:"red", txt:"🔴 Red — swap today for a long walk + mobility. Recover, don't dig the hole deeper." };
+}
+
+// ===== water =====
+function addWater(ml){
+  patch(l=>{ l.water = Math.max(0,(l.water||0)+ml); });
+  render();
+}
+
 // ===== TODAY =====
 function viewToday(){
   const t = DATA.today, n = DATA.nutrition, log = getLog();
@@ -85,34 +109,109 @@ function viewToday(){
       <label>${esc(td.text)}</label></div>`;
   }).join("");
   const C=175.9, off=C*(1-pct/100);
+
+  const r = log.readiness||{};
+  const verdict = readinessVerdict(r);
+  const readiness = RKEYS.map(x=>`
+    <div class="seg-row">
+      <span class="seg-lbl">${x.lbl}</span>
+      <div class="seg">${[1,2,3,4,5].map(v=>
+        `<button class="seg-btn ${r[x.k]===v?"on":""}" onclick="setReadiness('${x.k}',${v})">${v}</button>`).join("")}
+      </div>
+    </div>`).join("");
+
+  const sessionName = DATA.plan?.assignments?.[todayStr()];
+  const waterMl = log.water||0, waterTgt = n?.water_ml_target||3000;
+
   return `
     <div class="hero">
       <div><div class="hero-title">${esc(t.focus||"Today")}</div>
-        <div class="hero-sub">${esc(t.phase||"")}</div></div>
+        <div class="hero-sub">${esc(t.phase||"")}</div>
+        ${sessionName?`<div class="hero-chip" onclick="setTab('train')">🏋️ Today: ${esc(sessionName)} →</div>`:""}</div>
       <div class="ring"><svg width="64" height="64">
         <circle cx="32" cy="32" r="28" fill="none" stroke="rgba(255,255,255,.22)" stroke-width="7"></circle>
         <circle cx="32" cy="32" r="28" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round" stroke-dasharray="${C}" stroke-dashoffset="${off}"></circle>
       </svg><div class="ring-txt">${pct}%</div></div>
     </div>
+
+    <div class="section-title">Morning check-in</div>
+    <div class="card" style="padding:14px 16px">
+      ${readiness}
+      ${verdict?`<div class="verdict ${verdict.cls}">${verdict.txt}</div>`
+               :`<div class="note" style="margin:6px 0 2px">Rate all three — it decides how hard today should be.</div>`}
+    </div>
+
     <div class="stat-row">
       <div class="stat-card"><div class="stat-label">Next comp</div>
         <div class="stat-val">${nc?nc.d+"d":"—"}</div>
         <div class="stat-sub">${nc?esc(nc.name.split("—")[0]):"none set"}</div></div>
-      <div class="stat-card"><div class="stat-label">Protein target</div>
-        <div class="stat-val">${esc(n?.protein_g||"—")}g</div>
-        <div class="stat-sub">${esc(n?.bodyweight_kg||"")}kg bodyweight</div></div>
+      <div class="stat-card" style="--ac:#16a34a"><div class="stat-label">Protein</div>
+        <div class="stat-val" style="color:#16a34a">${esc(n?.protein_g||"—")}g</div>
+        <div class="stat-sub">${esc(n?.bodyweight_kg||"")}kg · 4 feedings</div></div>
+      <div class="stat-card" style="--ac:#0ea5e9"><div class="stat-label">Water</div>
+        <div class="stat-val" style="color:#0ea5e9">${(waterMl/1000).toFixed(1)}L</div>
+        <div class="stat-sub">of ${(waterTgt/1000).toFixed(1)}L · log in Eat</div></div>
+      <div class="stat-card" style="--ac:#f59e0b"><div class="stat-label">Calories</div>
+        <div class="stat-val" style="color:#f59e0b">${esc(n?.calories_now||"—")}</div>
+        <div class="stat-sub">travel target</div></div>
     </div>
+
     <div class="section-title">To-do today</div>
     <div class="card">${todos||'<div class="note">No to-dos.</div>'}</div>
+
     <div class="section-title">Body</div>
     <div class="card">
       <div class="field"><label>Bodyweight (kg)</label>
         <input type="text" inputmode="decimal" id="bw" value="${esc(log.bodyweight||"")}" placeholder="73"></div>
-      <div class="field"><label>How I feel / energy</label>
-        <input type="text" id="felt" value="${esc(log.felt||"")}" placeholder="e.g. fresh, sore legs, tired"></div>
+      <div class="field"><label>Notes — how I feel</label>
+        <input type="text" id="felt" value="${esc(log.felt||"")}" placeholder="e.g. fresh, sore legs, jet-lagged"></div>
     </div>
     ${t.note?`<div class="note">${esc(t.note)}</div>`:""}`;
 }
+
+// ===== last-session memory (looks back through daily logs) =====
+function lastLift(name){
+  for(let i=1;i<=14;i++){
+    const d=new Date(); d.setDate(d.getDate()-i);
+    const k=`daily-${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;
+    try{
+      const l=JSON.parse(localStorage.getItem(k));
+      const s=l&&l.liftsData&&l.liftsData[name];
+      if(s&&s.length) return { ago: i===1?"yesterday":i+"d ago", sets:s.map(x=>({w:+x.w||0,r:+x.r||0})) };
+    }catch{}
+  }
+  return null;
+}
+
+// ===== rest timer (floating chip, survives re-renders) =====
+let restIv=null;
+function startRest(sec){
+  let chip=document.getElementById("rest-chip");
+  if(!chip){
+    chip=document.createElement("button");
+    chip.id="rest-chip";
+    chip.style.cssText="position:fixed;left:12px;bottom:78px;z-index:999;border:none;border-radius:18px;padding:9px 16px;font-size:14px;font-weight:800;background:#f59e0b;color:#fff;box-shadow:0 2px 10px rgba(0,0,0,.3);cursor:pointer";
+    chip.onclick=stopRest;
+    document.body.appendChild(chip);
+  }
+  const end=Date.now()+sec*1000;
+  clearInterval(restIv);
+  const tick=()=>{
+    const left=Math.max(0,Math.round((end-Date.now())/1000));
+    if(left<=0){
+      clearInterval(restIv);
+      chip.textContent="⚔️ GO";
+      chip.style.background="#16a34a";
+      if(navigator.vibrate) navigator.vibrate([200,100,200]);
+      setTimeout(stopRest, 2500);
+      return;
+    }
+    chip.style.background="#f59e0b";
+    chip.textContent=`⏱ ${Math.floor(left/60)}:${String(left%60).padStart(2,"0")} — tap to cancel`;
+  };
+  tick(); restIv=setInterval(tick,500);
+}
+function stopRest(){ clearInterval(restIv); const c=document.getElementById("rest-chip"); if(c) c.remove(); }
 
 // ===== set logger (scroll wheels) =====
 const LIFTS = {};                 // working sets per exercise: name -> [{w,r}]
@@ -367,9 +466,11 @@ function viewTrain(){
         ${cues?`<ul class="cues">${cues}</ul>`:""}
         <a class="demo-link" href="https://www.youtube.com/results?search_query=${q}" target="_blank" rel="noopener">▶ Watch demo</a>
       </details>` : "";
+      const last = exConfig(ex).kind==="weighted" ? lastLift(key) : null;
       return `<div class="ex">
         <div class="ex-name">${esc(ex.name)}${ex.custom?`<button class="rm-ex" onclick="removeCustomExercise('${jsq(d.day)}','${jsq(ex.name)}')" aria-label="remove">✕</button>`:""}</div>
         <div class="ex-target">${esc(tgt)}${ex.custom?" · custom":""}</div>
+        ${last?`<div class="ex-last">↩ Last (${last.ago}): ${last.sets.map(s=>setLabel(s)).join(" · ")}</div>`:""}
         <div class="lift-wrap" data-wrap="${esc(key)}">${liftEditorHTML(ex)}</div>
         ${how}
         ${ex.notes?`<div class="ex-note">${esc(ex.notes)}</div>`:""}
@@ -380,23 +481,35 @@ function viewTrain(){
       d.conditioning&&d.conditioning!=="—"?`<div class="note"><b>Conditioning:</b> ${esc(d.conditioning)}</div>`:"",
       d.mobility?`<div class="note"><b>Mobility:</b> ${esc(d.mobility)}</div>`:""
     ].join("");
-    return `<div class="day-head">${esc(d.day)}<div class="day-focus">${esc(d.focus||"")}</div></div>
+    const isToday = p.assignments?.[todayStr()]===d.day;
+    return `<div class="day-head ${isToday?"day-today":""}">${esc(d.day)}${isToday?`<span class="today-badge">TODAY</span>`:""}<div class="day-focus">${esc(d.focus||"")}</div></div>
       <div class="card" style="border-radius:0 0 10px 10px;margin-top:0">
         ${d.warmup?`<div class="note" style="margin-bottom:8px"><b>Warmup:</b> ${esc(d.warmup)}</div>`:""}
         ${exs}
         <button class="add-ex" onclick="addCustomExercise('${jsq(d.day)}')">＋ Add exercise</button>
         ${extras}</div>`;
   }).join("");
+  const todaySession = p.assignments?.[todayStr()];
   return `
-    <div class="hero">
+    <div class="hero hero-flat">
       <div class="hero-title">${esc(p.phase||"Training")}</div>
       <div class="hero-sub">${esc(p.week||"")}</div>
+      ${todaySession?`<div class="hero-chip">📍 Today: ${esc(todaySession)}</div>`:""}
     </div>
     <div class="unit-row">
       <span class="unit-lbl">Weight units</span>
       <div class="unit-toggle">
         <button class="unit-btn ${getUnit()==="kg"?"on":""}" onclick="switchUnit('kg')">kg</button>
         <button class="unit-btn ${getUnit()==="lb"?"on":""}" onclick="switchUnit('lb')">lb</button>
+      </div>
+    </div>
+    <div class="unit-row">
+      <span class="unit-lbl">⏱ Rest timer</span>
+      <div style="display:flex;gap:6px">
+        <button class="rest-btn" onclick="startRest(60)">1:00</button>
+        <button class="rest-btn" onclick="startRest(90)">1:30</button>
+        <button class="rest-btn" onclick="startRest(120)">2:00</button>
+        <button class="rest-btn" onclick="startRest(180)">3:00</button>
       </div>
     </div>
     ${principles?`<div class="section-title">Principles</div><div class="card"><ul style="margin-left:16px;font-size:13px;line-height:1.6">${principles}</ul></div>`:""}
@@ -406,6 +519,15 @@ function viewTrain(){
 }
 
 // ===== EAT =====
+function macroBar(lbl, val, tgt, unit, color){
+  const pct = tgt ? Math.min(100, Math.round(val/tgt*100)) : 0;
+  return `<div class="bar-wrap">
+    <div class="bar-top"><span class="bar-lbl">${lbl}</span>
+      <span class="bar-num" style="color:${color}">${Math.round(val)}<small> / ${tgt}${unit}</small></span></div>
+    <div class="bar-bg"><div class="bar-fill" style="width:${pct}%;background:${color}"></div></div>
+  </div>`;
+}
+
 function viewEat(){
   const n = DATA.nutrition, log = getLog();
   if(!n) return `<div class="empty">Couldn't load nutrition.</div>`;
@@ -415,26 +537,45 @@ function viewEat(){
       <input type="checkbox" data-habit="${i}" ${done?"checked":""}>
       <label>${esc(h)}</label></div>`;
   }).join("");
+  const tot = log.totals||{calories:0,protein:0,carbs:0,fat:0};
+  const mealsN = (log.meals||[]).length;
+  const waterMl = log.water||0, waterTgt = n.water_ml_target||3000;
+  const playbook = (n.playbook||[]).map(x=>`<li>${esc(x)}</li>`).join("");
+
   return `
-    <div class="hero"><div class="hero-title">Nutrition</div>
-      <div class="hero-sub">${esc(n.bodyweight_kg)}kg · targets</div></div>
-    <div class="stat-row">
-      <div class="stat-card"><div class="stat-label">Calories (full-time)</div><div class="stat-val">${esc(n.calories_fulltime)}</div><div class="stat-sub">now: ${esc(n.calories_now)}</div></div>
-      <div class="stat-card"><div class="stat-label">Protein</div><div class="stat-val">${esc(n.protein_g)}g</div><div class="stat-sub">~4 meals</div></div>
-      <div class="stat-card"><div class="stat-label">Carbs (training)</div><div class="stat-val">${esc(n.carbs_g_training_day)}g</div><div class="stat-sub">lower on rest days</div></div>
-      <div class="stat-card"><div class="stat-label">Fat</div><div class="stat-val">${esc(n.fat_g)}g</div><div class="stat-sub"></div></div>
+    <div class="hero hero-flat"><div class="hero-title">Fuel</div>
+      <div class="hero-sub">${esc(n.bodyweight_kg)}kg · travel ${esc(n.calories_now)} kcal · ${esc(n.protein_g)}g protein</div></div>
+
+    <div class="section-title">Today so far ${mealsN?`· ${mealsN} meal${mealsN>1?"s":""} logged`:""}</div>
+    <div class="card" style="padding:14px 16px">
+      ${macroBar("Calories", tot.calories, n.kcal_target||2500, "", "#3b82f6")}
+      ${macroBar("Protein",  tot.protein,  n.protein_target||150, "g", "#16a34a")}
+      ${macroBar("Carbs",    tot.carbs,    n.carbs_target||300, "g", "#f59e0b")}
+      ${macroBar("Fat",      tot.fat,      n.fat_target||80, "g", "#64748b")}
+      ${mealsN?"":`<div class="note" style="margin:8px 0 2px">Photo your meals below — macros land here automatically.</div>`}
     </div>
-    <div class="section-title">Daily habits</div>
-    <div class="card">${habits}</div>
-    ${log.totals?`<div class="section-title">Today so far</div>
-    <div class="stat-row">
-      <div class="stat-card"><div class="stat-label">Calories eaten</div><div class="stat-val">${Math.round(log.totals.calories)}</div><div class="stat-sub">target ${esc(n.calories_fulltime)}</div></div>
-      <div class="stat-card"><div class="stat-label">Protein eaten</div><div class="stat-val">${Math.round(log.totals.protein)}g</div><div class="stat-sub">target ${esc(n.protein_g)}</div></div>
-    </div>`:""}
+
+    <div class="section-title">💧 Water</div>
+    <div class="card" style="padding:14px 16px">
+      ${macroBar("Water", waterMl, waterTgt, "ml", "#0ea5e9")}
+      <div class="water-btns">
+        <button class="wbtn" onclick="addWater(250)">＋ glass (250)</button>
+        <button class="wbtn" onclick="addWater(500)">＋ bottle (500)</button>
+        <button class="wbtn minus" onclick="addWater(-250)">−250</button>
+      </div>
+    </div>
+
     <div class="section-title">📸 Snap a meal → instant macros</div>
     <div class="card" id="snap-card">${mealCardHTML()}</div>
-    <div class="section-title">Food log</div>
-    <div class="card"><div class="field"><label>What I ate today</label>
+
+    <div class="section-title">Daily habits</div>
+    <div class="card">${habits}</div>
+
+    ${playbook?`<div class="section-title">${esc(n.playbook_title||"Eating out")}</div>
+    <div class="card"><ul class="playbook">${playbook}</ul></div>`:""}
+
+    <div class="section-title">Food notes</div>
+    <div class="card"><div class="field"><label>Anything not photographed</label>
       <textarea id="food" placeholder="meals, rough amounts...">${esc(log.food||"")}</textarea></div></div>
     ${n.note?`<div class="note">${esc(n.note)}</div>`:""}`;
 }
@@ -443,21 +584,23 @@ function viewEat(){
 function viewSchedule(){
   const s = DATA.schedule;
   if(!s) return `<div class="empty">Couldn't load schedule.</div>`;
-  const comps = (s.competitions||[]).map(c=>{
-    const d = daysUntil(c.date);
-    return `<div class="ev"><div><div class="ev-name">${esc(c.name)}</div>
-      <div class="ev-meta">${esc(c.date)} · ${esc(c.location)} · ${esc(c.status||"")}</div></div>
-      <div class="ev-days">${d>=0?d+"d":"past"}</div></div>`;
-  }).join("");
+  const evRow = (name, meta, d) => `
+    <div class="ev"><div><div class="ev-name">${name}</div>
+      <div class="ev-meta">${meta}</div></div>
+      <div class="ev-days ${d>=0&&d<=14?"soon":""}">${d>=0?(d===0?"today":d+"d"):"past"}</div></div>`;
+  const miles = (s.milestones||[]).filter(m=>daysUntil(m.date)>=0).map(m=>
+    evRow(`${esc(m.icon||"📌")} ${esc(m.name)}`, esc(m.date), daysUntil(m.date))).join("");
+  const comps = (s.competitions||[]).map(c=>
+    evRow(esc(c.name), `${esc(c.date)} · ${esc(c.location)} · ${esc(c.status||"")}`, daysUntil(c.date))).join("");
   const flights = (s.flights||[]).map(f=>
-    `<div class="ev"><div><div class="ev-name">${esc(f.route||f.name||"Flight")}</div>
+    `<div class="ev"><div><div class="ev-name">✈️ ${esc(f.route||f.name||"Flight")}</div>
       <div class="ev-meta">${esc(f.date)} · ${esc(f.notes||"")}</div></div></div>`).join("");
   return `
-    <div class="hero"><div class="hero-title">Schedule</div><div class="hero-sub">comps + travel</div></div>
+    <div class="hero hero-flat"><div class="hero-title">The road ahead</div><div class="hero-sub">milestones · comps · travel</div></div>
+    ${miles?`<div class="section-title">Milestones</div><div class="card">${miles}</div>`:""}
     <div class="section-title">Competitions</div>
     <div class="card">${comps||'<div class="note">None yet.</div>'}</div>
-    <div class="section-title">Flights</div>
-    <div class="card">${flights||'<div class="note">No flights yet — tell Claude to add them.</div>'}</div>
+    ${flights?`<div class="section-title">Flights</div><div class="card">${flights}</div>`:""}
     ${s.note?`<div class="note">${esc(s.note)}</div>`:""}`;
 }
 
@@ -585,6 +728,12 @@ function buildDayText(){
   let out = `# My day — ${todayStr()}\n`;
   if(log.bodyweight) out += `Bodyweight: ${log.bodyweight} kg\n`;
   if(log.felt) out += `Feel/energy: ${log.felt}\n`;
+  if(log.readiness){
+    const r=log.readiness;
+    out += `Readiness: sleep ${r.sleep||"?"}/5 · energy ${r.energy||"?"}/5 · freshness ${r.fresh||"?"}/5\n`;
+  }
+  if(log.water) out += `Water: ${(log.water/1000).toFixed(1)} L\n`;
+  if(log.totals) out += `Macros: ${Math.round(log.totals.calories)} kcal · P${Math.round(log.totals.protein)} C${Math.round(log.totals.carbs)} F${Math.round(log.totals.fat)}\n`;
   const todos = (t?.todos||[]).map(td=>`- [${(log.todos?.[td.id]??td.done)?"x":" "}] ${td.text}`);
   if(todos.length) out += `\n## To-dos\n${todos.join("\n")}\n`;
   const lifts = Object.entries(log.lifts||{}).filter(([,v])=>v && v.trim());
@@ -650,6 +799,11 @@ function fallbackCopy(txt){
 
     let out = fm + "# " + date + "\n";
     if (log.felt) out += "\nFeel/energy: " + log.felt + "\n";
+    if (log.readiness){
+      const r = log.readiness;
+      out += "Readiness: sleep " + (r.sleep||"?") + "/5 · energy " + (r.energy||"?") + "/5 · freshness " + (r.fresh||"?") + "/5\n";
+    }
+    if (log.water) out += "Water: " + (log.water/1000).toFixed(1) + " L\n";
 
     const meals = log.meals || [];
     if (meals.length){

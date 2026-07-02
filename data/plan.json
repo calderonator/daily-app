@@ -1,65 +1,73 @@
 {
-  "phase": "Hotel Trip — Dumbbell Maintenance",
-  "week": "Jul 1–5, 2026 · fly home Jul 6",
+  "phase": "Hotel Block — Travel Maintenance",
+  "week": "Jul 1–5 · A B C A B · fly home Jul 6",
   "startDate": "2026-07-01",
+  "assignments": {
+    "2026-07-01": "A — Full Body",
+    "2026-07-02": "B — Lower + Conditioning",
+    "2026-07-03": "C — Upper + Core",
+    "2026-07-04": "A — Full Body",
+    "2026-07-05": "B — Lower + Conditioning"
+  },
   "principles": [
-    "Goal: stay sharp and move well on the road — not to peak",
-    "Gym: dumbbells, bench, cables, pull-up bar, treadmill; leave 2 reps in reserve",
-    "Rotate A → B → C → A → B across the trip",
-    "40–45 min. Short on time? Do the first 3 lifts + a treadmill finisher",
-    "Protect sleep & hydration while traveling — they matter more than any set"
+    "Goal: hold strength + stay springy. Not the week to chase PRs",
+    "Every lift at RPE 7 — two clean reps always left in the tank",
+    "Kit: dumbbells, bench, cables, pull-up bar, treadmill",
+    "40–45 min. Short on time? First 3 lifts + treadmill finisher",
+    "Morning check-in decides the day: green = as planned, amber = trim a set, red = walk + mobility only",
+    "Sleep and hydration on the road beat any set you'll do"
   ],
   "days": [
     {
-      "day": "A — Full Body (DB)",
-      "focus": "Total-body strength, minimal kit",
-      "warmup": "Treadmill brisk walk 5 min + arm circles, bodyweight squats, hip openers",
+      "day": "A — Full Body",
+      "focus": "Total-body strength · ~45 min",
+      "warmup": "RAMP 6–8 min: treadmill walk 3 min → leg swings, hip openers, arm circles → 10 bodyweight squats, 5 slow push-ups → 3 crisp squat jumps to prime",
       "exercises": [
-        { "name": "DB goblet squat", "sets": "3", "reps": "10", "cues": ["Hold one DB at your chest", "Brace, sit down between the hips", "Full depth, knees track toes"], "video": "dumbbell goblet squat form" },
-        { "name": "DB Romanian deadlift", "sets": "3", "reps": "10", "cues": ["Soft knees, hinge at the hips", "DBs slide down the thighs", "Flat back, squeeze glutes at the top"], "video": "dumbbell romanian deadlift form" },
-        { "name": "DB bench press", "sets": "3", "reps": "10", "cues": ["Shoulder blades back & down", "Lower to mid-chest", "Drive your feet into the floor"], "video": "dumbbell bench press form" },
-        { "name": "1-arm DB row", "sets": "3", "reps": "10/side", "cues": ["Hand & knee on the bench", "Row the DB to your hip", "No torso twist"], "video": "single arm dumbbell row form" },
-        { "name": "Pull-ups", "sets": "3", "reps": "6", "cues": ["Full hang to start", "Pull chest toward the bar", "Control the way down"], "video": "pull up proper form", "notes": "Use a band or do slow negatives if needed. Add weight once 3×6 is easy." },
-        { "name": "DB reverse lunge", "sets": "2", "reps": "8/side", "cues": ["Step back, drop the back knee", "Front shin vertical", "Push through the front heel"], "video": "dumbbell reverse lunge form" },
-        { "name": "Plank", "sets": "3", "reps": "40s", "cues": ["Ribs down, glutes tight", "Straight line head to heels", "Breathe steadily"], "video": "forearm plank proper form" }
+        { "name": "DB goblet squat", "sets": "3", "reps": "10", "target": "RPE 7 · rest 2 min", "cues": ["Hold one DB at your chest", "Brace, sit down between the hips", "Full depth, knees track toes"], "video": "dumbbell goblet squat form" },
+        { "name": "DB Romanian deadlift", "sets": "3", "reps": "10", "target": "RPE 7 · rest 2 min", "cues": ["Soft knees, hinge at the hips", "DBs slide down the thighs", "Flat back, squeeze glutes at the top"], "video": "dumbbell romanian deadlift form" },
+        { "name": "DB bench press", "sets": "3", "reps": "10", "target": "RPE 7 · rest 2 min", "cues": ["Shoulder blades back & down", "Lower to mid-chest", "Drive your feet into the floor"], "video": "dumbbell bench press form" },
+        { "name": "Pull-ups", "sets": "3", "reps": "6", "target": "rest 2 min", "cues": ["Full hang to start", "Pull chest toward the bar", "Control the way down"], "video": "pull up proper form", "notes": "Band or slow negatives if needed; add weight once 3×6 is easy." },
+        { "name": "1-arm DB row", "sets": "3", "reps": "10/side", "target": "RPE 7 · rest 90s", "cues": ["Hand & knee on the bench", "Row the DB to your hip", "No torso twist"], "video": "single arm dumbbell row form" },
+        { "name": "DB reverse lunge", "sets": "2", "reps": "8/side", "target": "rest 90s", "cues": ["Step back, drop the back knee", "Front shin vertical", "Push through the front heel"], "video": "dumbbell reverse lunge form" },
+        { "name": "Plank", "sets": "3", "reps": "40s", "target": "rest 60s", "cues": ["Ribs down, glutes tight", "Straight line head to heels", "Breathe steadily"], "video": "forearm plank proper form" }
       ],
-      "power": "Optional primer: 5 crisp bodyweight squat jumps before squats",
-      "conditioning": "Treadmill: 6×(30s brisk incline / 60s easy)",
-      "mobility": "Hips + shoulders 6 min"
+      "power": "Primer before squats: 3×3 crisp squat jumps — max intent, full recovery",
+      "conditioning": "Treadmill: 6 × (30s brisk incline / 60s easy)",
+      "mobility": "Hips + shoulders 6 min while you cool down"
     },
     {
       "day": "B — Lower + Conditioning",
-      "focus": "Legs + fencing energy system",
-      "warmup": "Treadmill 5 min + leg swings, ankle rocks",
+      "focus": "Legs + the fencing engine · ~45 min",
+      "warmup": "RAMP 6–8 min: treadmill 3 min → leg swings, ankle rocks, deep squat holds → 2×5 pogo hops (quiet landings)",
       "exercises": [
-        { "name": "DB Bulgarian split squat", "sets": "3", "reps": "8/side", "cues": ["Back foot on the bench", "Drop straight down", "Front shin near vertical"], "video": "dumbbell bulgarian split squat form" },
-        { "name": "DB Romanian deadlift", "sets": "3", "reps": "10", "cues": ["Hinge at the hips", "DBs stay close to the legs", "Flat back throughout"], "video": "dumbbell romanian deadlift form" },
-        { "name": "DB step-up", "sets": "3", "reps": "8/side", "cues": ["Whole foot on the bench", "Drive through the top leg", "Control the way down"], "video": "dumbbell step up form" },
-        { "name": "DB calf raise", "sets": "3", "reps": "15", "cues": ["Full range", "Pause at the top", "Lower slowly"], "video": "dumbbell calf raise form" },
-        { "name": "Dead bug", "sets": "3", "reps": "8/side", "cues": ["Low back flat on the floor", "Opposite arm & leg reach", "Slow and controlled"], "video": "dead bug core exercise" }
+        { "name": "DB Bulgarian split squat", "sets": "3", "reps": "8/side", "target": "RPE 7 · rest 2 min", "cues": ["Back foot on the bench", "Drop straight down", "Front shin near vertical"], "video": "dumbbell bulgarian split squat form", "notes": "Closest thing to a lunge pattern all week — own it." },
+        { "name": "DB Romanian deadlift", "sets": "3", "reps": "10", "target": "RPE 7 · rest 2 min", "cues": ["Hinge at the hips", "DBs stay close to the legs", "Flat back throughout"], "video": "dumbbell romanian deadlift form" },
+        { "name": "DB step-up", "sets": "3", "reps": "8/side", "target": "RPE 7 · rest 90s", "cues": ["Whole foot on the bench", "Drive through the top leg", "Control the way down"], "video": "dumbbell step up form" },
+        { "name": "DB calf raise", "sets": "3", "reps": "15", "target": "slow lower · rest 60s", "cues": ["Full range", "Pause at the top", "3s down"], "video": "dumbbell calf raise form" },
+        { "name": "Dead bug", "sets": "3", "reps": "8/side", "target": "rest 60s", "cues": ["Low back flat on the floor", "Opposite arm & leg reach", "Slow and controlled"], "video": "dead bug core exercise" }
       ],
       "power": "—",
-      "conditioning": "Treadmill intervals: 8×(20s hard / 90s easy) — trains fencing's energy system",
-      "mobility": "Ankle + hip 8 min"
+      "conditioning": "Treadmill: 8 × (20s hard / 90s easy) — this IS the fencing energy system. All-out on the 20s.",
+      "mobility": "Ankles + hips 8 min"
     },
     {
       "day": "C — Upper + Core",
-      "focus": "Push / pull + trunk + épée wrist prehab",
-      "warmup": "Light-DB shoulder prep, scap activation",
+      "focus": "Push/pull balance + épée arm care · ~40 min",
+      "warmup": "Band-less shoulder prep: arm circles, wall slides, scap push-ups 2×8, light-DB external rotations",
       "exercises": [
-        { "name": "DB bench press", "sets": "3", "reps": "10", "cues": ["Blades back & down", "Lower to mid-chest", "Controlled tempo"], "video": "dumbbell bench press form" },
-        { "name": "DB shoulder press", "sets": "3", "reps": "10", "cues": ["Ribs down, brace core", "Press straight overhead", "Don't arch the low back"], "video": "seated dumbbell shoulder press form" },
-        { "name": "1-arm DB row", "sets": "3", "reps": "10/side", "cues": ["Flat back", "Row to your hip", "Squeeze the mid-back"], "video": "single arm dumbbell row form" },
-        { "name": "DB lateral raise", "sets": "2", "reps": "12", "cues": ["Slight elbow bend", "Lead with the elbows", "Control the lower"], "video": "dumbbell lateral raise form" },
-        { "name": "Cable face pull", "sets": "3", "reps": "15", "cues": ["Pull toward your forehead", "Keep the elbows high", "Squeeze the shoulder blades"], "video": "cable face pull form", "notes": "Great for shoulder health + posture." },
-        { "name": "DB wrist/forearm prehab", "sets": "2", "reps": "12", "cues": ["Light DB, wrist curls both directions", "Slow and controlled", "Key for the épée wrist"], "video": "dumbbell wrist curl forearm" },
-        { "name": "Hanging knee raise", "sets": "3", "reps": "10", "cues": ["Hang from the bar", "Curl the knees to your chest", "No swinging"], "video": "hanging knee raise form" },
-        { "name": "Pallof-style anti-rotation press", "sets": "3", "reps": "10/side", "cues": ["Resist the rotation", "Ribs down", "Steady breathing"], "video": "pallof press anti rotation core" }
+        { "name": "DB bench press", "sets": "3", "reps": "10", "target": "RPE 7 · rest 2 min", "cues": ["Blades back & down", "Lower to mid-chest", "Controlled tempo"], "video": "dumbbell bench press form" },
+        { "name": "DB shoulder press", "sets": "3", "reps": "10", "target": "RPE 7 · rest 2 min", "cues": ["Ribs down, brace core", "Press straight overhead", "Don't arch the low back"], "video": "seated dumbbell shoulder press form" },
+        { "name": "1-arm DB row", "sets": "3", "reps": "10/side", "target": "RPE 7 · rest 90s", "cues": ["Flat back", "Row to your hip", "Squeeze the mid-back"], "video": "single arm dumbbell row form" },
+        { "name": "Cable face pull", "sets": "3", "reps": "15", "target": "light · rest 60s", "cues": ["Pull toward your forehead", "Elbows high", "Squeeze the shoulder blades"], "video": "cable face pull form", "notes": "Shoulder health + posture — the unglamorous rep that keeps you fencing." },
+        { "name": "DB lateral raise", "sets": "2", "reps": "12", "target": "light · rest 60s", "cues": ["Slight elbow bend", "Lead with the elbows", "Control the lower"], "video": "dumbbell lateral raise form" },
+        { "name": "DB wrist/forearm prehab", "sets": "2", "reps": "12", "target": "light + slow", "cues": ["Wrist curls both directions", "Slow and controlled", "The épée wrist pays rent here"], "video": "dumbbell wrist curl forearm" },
+        { "name": "Hanging knee raise", "sets": "3", "reps": "10", "target": "no swing · rest 60s", "cues": ["Hang from the bar", "Curl knees to chest", "Control down"], "video": "hanging knee raise form" },
+        { "name": "Pallof-style anti-rotation press", "sets": "3", "reps": "10/side", "target": "cable at chest height", "cues": ["Resist the rotation", "Ribs down", "Steady breathing"], "video": "pallof press anti rotation core" }
       ],
       "power": "—",
-      "conditioning": "Treadmill easy 10 min, or optional 6×20s strides",
+      "conditioning": "Optional: treadmill easy 10 min or 6×20s strides",
       "mobility": "T-spine + shoulders 8 min"
     }
   ],
-  "note": "Travel block — light and movement-focused. Now using the hotel's cables + pull-up bar too. Weights are auto-estimated; toggle kg/lb up top and spin the wheels to match your gym. Tap ＋ Add exercise on any day to log your own. Back to your real base plan once you're home."
+  "note": "Travel block, built around the hotel gym. Weights start at smart estimates — spin the wheels to match the rack. Real periodized base block starts when you're home; full-time plan activates Aug 15 after the force-velocity test."
 }

@@ -1,4 +1,4 @@
-const CACHE = "daily-v11";
+const CACHE = "daily-v12";
 const ASSETS = [
   "./", "./index.html", "./app.js", "./manifest.json",
   "./data/today.json", "./data/plan.json", "./data/nutrition.json", "./data/schedule.json"

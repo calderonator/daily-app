@@ -1,12 +1,14 @@
 {
-  "date": "2026-06-28",
-  "phase": "Pre-prep (not training yet)",
-  "focus": "Build base habits before going full-time (~Aug 15)",
+  "date": "2026-07-01",
+  "phase": "Travel week · Jul 1–5 · fly home Jul 6",
+  "focus": "Hotel block — stay sharp",
   "todos": [
-    { "id": "creatine", "text": "Creatine 5g (start now to saturate by Aug)", "done": false },
-    { "id": "sleep", "text": "Morning sunlight + consistent wake time", "done": false },
-    { "id": "protein", "text": "Hit protein target (120–160g)", "done": false },
-    { "id": "move", "text": "Light movement / mobility", "done": false }
+    { "id": "sun",      "text": "Morning sunlight ~10 min, same wake time", "done": false },
+    { "id": "creatine", "text": "Creatine 5g (any time of day)", "done": false },
+    { "id": "session",  "text": "Do today's session (see Train tab)", "done": false },
+    { "id": "protein4", "text": "4 protein feedings, 35–40g each", "done": false },
+    { "id": "steps",    "text": "8,000+ steps — walk the city or treadmill", "done": false },
+    { "id": "wind",     "text": "Wind down: screens off 30 min before bed", "done": false }
   ],
-  "note": "Full training plan activates ~Aug 15 after your force-velocity test. For now: creatine, sleep, protein, light movement."
+  "note": "Travel weeks are won on the boring stuff: train, protein, walk, sleep. Do the check-in below each morning — it decides how hard today's session should be."
 }
