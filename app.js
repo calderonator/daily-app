@@ -247,34 +247,37 @@ function removeCustomExercise(day,name){
 
 // Per-exercise weight/rep estimate (kg) for a ~73kg returning athlete in a base block.
 // All editable — these just center the wheel on a sensible starting point.
+// Convention: for dumbbell exercises the weight ALWAYS means ONE dumbbell
+// (what's stamped on the bell), never the sum of the pair.
 function exConfig(ex){
   const n = (ex.name||"").toLowerCase();
   const SPECIAL = ["force-velocity","jump","bound","pogo","nordic","copenhagen",
                    "plank","landing","interval","pallof","dead bug","strides","mobility"];
   if(SPECIAL.some(k=>n.includes(k))) return { kind:"special" };
+  const isDb = /\bdb\b|dumbbell/.test(n);
   let wDef=20, wMax=100, wStep=2.5;
   const S=(d,mx,st)=>{ wDef=d; wMax=mx; wStep=st; };
-  if(/romanian|rdl/.test(n))                    S(50,180,5);
+  if(/romanian|rdl/.test(n))                    isDb ? S(24,60,2) : S(50,180,5);
   else if(/trap|deadlift/.test(n))              S(70,220,5);
-  else if(/goblet/.test(n))                     S(24,120,2);
-  else if(/back squat|squat/.test(n))           S(40,180,2.5);
+  else if(/goblet/.test(n))                     S(24,60,2);
+  else if(/back squat|squat/.test(n) && !isDb)  S(40,180,2.5);
   else if(/split squat|bulgarian/.test(n))      S(14,50,2);
-  else if(/step-?up/.test(n))                   S(12,60,2);
-  else if(/calf/.test(n))                       S(30,160,5);
+  else if(/step-?up/.test(n))                   S(12,50,2);
+  else if(/calf/.test(n))                       isDb ? S(24,60,2) : S(30,160,5);
   else if(/push press/.test(n))                 S(18,70,2);
-  else if(/shoulder press|overhead|ohp/.test(n))S(16,60,2);
-  else if(/lateral raise|side raise/.test(n))   S(8,30,1);
+  else if(/shoulder press|overhead|ohp/.test(n))isDb ? S(14,40,2) : S(16,60,2);
+  else if(/lateral raise|side raise/.test(n))   S(8,20,1);
   else if(/face pull/.test(n))                  S(12,45,2.5);
   else if(/pulldown/.test(n))                   S(45,120,2.5);
   else if(/pull-?up|chin-?up/.test(n))          S(0,40,2.5);   // bodyweight + optional added
   else if(/cable/.test(n))                      S(16,70,2.5);  // cable stack
-  else if(/bench|db press|press/.test(n))       S(20,80,2.5);
+  else if(/bench|db press|press/.test(n))       isDb ? S(20,60,2) : S(20,80,2.5);
   else if(/knee raise|leg raise|hanging/.test(n))S(0,30,2.5);  // bodyweight + optional
   else if(/row/.test(n))                        S(24,60,2);
-  else if(/wrist|forearm/.test(n))              S(5,25,1);
+  else if(/wrist|forearm/.test(n))              S(5,15,1);
   else if(/lunge/.test(n))                      S(0,40,2);   // often bodyweight
   const rDef = parseInt(ex.reps) || 8;
-  return { kind:"weighted", wDef, wMax, wStep, rDef, rMin:1, rMax:20 };
+  return { kind:"weighted", wDef, wMax, wStep, rDef, rMin:1, rMax:20, db:isDb };
 }
 
 const fmtW = w => (w%1===0 ? String(w) : w.toFixed(1));
@@ -320,9 +323,11 @@ let saveT;
 function saveSets(key){
   clearTimeout(saveT);
   saveT = setTimeout(()=>{
+    const ex = exByName(key);
+    const perDb = ex ? exConfig(ex).db : false;
     patch(l=>{
       l.liftsData = l.liftsData||{}; l.liftsData[key]=LIFTS[key];
-      l.lifts     = l.lifts||{};     l.lifts[key]=serializeSets(LIFTS[key]);
+      l.lifts     = l.lifts||{};     l.lifts[key]=serializeSets(LIFTS[key]) + (perDb ? " (per DB)" : "");
     });
   }, 250);
 }
@@ -343,7 +348,7 @@ function wheelHTML(kind,cfg){
   const vals = wheelValues(kind,cfg);
   const items = vals.map(v=>`<button class="wheel-item" data-v="${v}">${wheelLabel(kind,v)}</button>`).join("");
   return `<div class="wheel-col">
-    <div class="wheel-cap">${kind==="w"?`Weight (${getUnit()})`:"Reps"}</div>
+    <div class="wheel-cap">${kind==="w"?`Weight (${getUnit()}${cfg.db?" · one DB":""})`:"Reps"}</div>
     <div class="stepper">
       <button class="step" data-kind="${kind}" data-d="-1">−</button>
       <div class="wheel" data-kind="${kind}">
@@ -466,10 +471,11 @@ function viewTrain(){
         ${cues?`<ul class="cues">${cues}</ul>`:""}
         <a class="demo-link" href="https://www.youtube.com/results?search_query=${q}" target="_blank" rel="noopener">▶ Watch demo</a>
       </details>` : "";
-      const last = exConfig(ex).kind==="weighted" ? lastLift(key) : null;
+      const cfg = exConfig(ex);
+      const last = cfg.kind==="weighted" ? lastLift(key) : null;
       return `<div class="ex">
         <div class="ex-name">${esc(ex.name)}${ex.custom?`<button class="rm-ex" onclick="removeCustomExercise('${jsq(d.day)}','${jsq(ex.name)}')" aria-label="remove">✕</button>`:""}</div>
-        <div class="ex-target">${esc(tgt)}${ex.custom?" · custom":""}</div>
+        <div class="ex-target">${esc(tgt)}${cfg.db?" · weight = one DB":""}${ex.custom?" · custom":""}</div>
         ${last?`<div class="ex-last">↩ Last (${last.ago}): ${last.sets.map(s=>setLabel(s)).join(" · ")}</div>`:""}
         <div class="lift-wrap" data-wrap="${esc(key)}">${liftEditorHTML(ex)}</div>
         ${how}
