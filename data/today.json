@@ -8,6 +8,7 @@
     { "id": "session",  "text": "Do today's session (see Train tab)", "done": false },
     { "id": "protein4", "text": "4 protein feedings, 35–40g each", "done": false },
     { "id": "carbs",    "text": "Carbs around the session — fuel the springs", "done": false },
+    { "id": "splits",   "text": "10 min splits/mobility — always warm first", "done": false },
     { "id": "steps",    "text": "8,000+ steps", "done": false },
     { "id": "wind",     "text": "Wind down: screens off 30 min before bed", "done": false }
   ],

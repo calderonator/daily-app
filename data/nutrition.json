@@ -1,31 +1,42 @@
 {
   "bodyweight_kg": 73,
-  "kcal_target": 2500,
+  "kcal_target": 2800,
   "protein_target": 150,
-  "carbs_target": 300,
+  "carbs_target": 330,
   "fat_target": 80,
   "water_ml_target": 3000,
   "calories_now": "2,700–2,900",
   "calories_fulltime": "2,900–3,200",
-  "protein_g": "145–160",
-  "carbs_g_training_day": "250–320",
+  "protein_g": "150",
+  "carbs_g_training_day": "300–350",
+  "carbs_g_rest_day": "200–240",
   "fat_g": "75–85",
   "habits": [
-    "Creatine 5g daily (saturating for Aug 15)",
-    "Protein at every meal — 35–40g × 4 feedings",
-    "2.5–3L water; electrolytes on sweat days",
-    "2–3 pieces of fruit",
-    "No caffeine after 2pm — protect sleep",
-    "Greek yogurt / casein before bed on training days"
+    "Creatine 5g daily — power + tendon support",
+    "Protein 35–40g × 4 feedings = ~150g (2.0–2.2 g/kg)",
+    "Collagen 15g + vitamin C, 30–60 min before iso / plyo / Nordic work — feeds the tendons",
+    "Carbs around sessions: fist+ before, refill after. Up on strength & speed days, down on recovery days",
+    "2.5–3L water; electrolytes on speed & sweat days",
+    "Omega-3: oily fish 2×/wk or ~2g EPA+DHA — connective-tissue recovery",
+    "3+ colors of fruit & veg daily — micronutrients that build collagen",
+    "Casein or Greek yogurt before bed on training days"
   ],
-  "playbook_title": "Eating out — the hotel playbook",
+  "around_training_title": "🔀 Fuel around your session",
+  "around_training": [
+    "Before (45–60 min): easy carbs (fruit, oats, rice) + 15g collagen + vitamin C — primes tendons on iso, plyo & Nordic days",
+    "During: water + electrolytes; sip carbs only if the session runs past ~75 min",
+    "After (within 60 min): 35–40g protein + a fist or two of carbs to refill",
+    "Strength & speed days → carbs up (~330g). Recovery days → carbs down (~220g). Protein stays ~150g every day",
+    "Splits & mobility: go in warm and hydrated — collagen pre-session helps the stretch build tissue, not just tolerance"
+  ],
+  "playbook_title": "Eating out — the playbook",
   "playbook": [
     "Anchor every meal: a palm-to-two-palms of protein (chicken, steak, fish, eggs)",
-    "Add a fist of carbs (rice, potato, bread) — double it on session days",
+    "Add a fist of carbs (rice, potato, bread) — double it on strength & speed days",
     "Half the plate vegetables or fruit whenever available",
-    "Breakfast buffet order: eggs + Greek yogurt + oats + fruit. Done.",
-    "Travel snacks: Greek yogurt, jerky, protein shake, nuts, fruit",
+    "Breakfast that builds tissue: eggs + Greek yogurt + oats + fruit",
+    "Pocket snacks: Greek yogurt, jerky, protein shake, nuts, fruit",
     "Alcohol: skip it or cap at one — it taxes sleep and recovery most"
   ],
-  "note": "Home base-block targets: ~2,700–2,900 kcal, 150g protein (2.0–2.2 g/kg per ISSN), carbs up on strength & speed days. Full-time targets (2,900–3,200) kick in Aug 15. Calibrate by the scale + morning energy, not by one day."
+  "note": "Home base-block fueling, periodized to the plan: ~2,800 kcal on training days (carbs up), ~2,400 on recovery days (carbs down); protein steady at ~150g (2.0–2.2 g/kg per ISSN). Collagen + vitamin C before elastic/tendon work is the lever for 'tight, fast tendons'. No caffeine after 2pm — sleep is where tendons and speed are built. Full-time targets (2,900–3,200) kick in Aug 15. Calibrate by the scale + morning energy, not one day."
 }

@@ -254,7 +254,8 @@ function exConfig(ex){
   const SPECIAL = ["force-velocity","jump","bound","pogo","nordic","copenhagen",
                    "plank","landing","interval","pallof","dead bug","strides","mobility",
                    "sprint","spanish","isometric","wall sit","tibialis","sled",
-                   "med ball","med-ball","throw","footwork","hop","skip"];
+                   "med ball","med-ball","throw","footwork","hop","skip",
+                   "stretch","splits","pancake","jefferson"];
   if(SPECIAL.some(k=>n.includes(k))) return { kind:"special" };
   const isDb = /\bdb\b|dumbbell/.test(n);
   let wDef=20, wMax=100, wStep=2.5;
@@ -368,7 +369,8 @@ function liftEditorHTML(ex){
   const key=ex.name, cfg=exConfig(ex);
   if(cfg.kind==="special" || LIFTUI.manual[key]){
     const val = getLog().lifts?.[key] || "";
-    return `<input type="text" class="lift-manual" data-lift="${esc(key)}" value="${esc(val)}" placeholder="log e.g. 80x5, 85x5">
+    const ph = cfg.kind==="special" ? "log sets, time, distance, or a quick note" : "log e.g. 80x5, 85x5";
+    return `<input type="text" class="lift-manual" data-lift="${esc(key)}" value="${esc(val)}" placeholder="${ph}">
       ${cfg.kind!=="special" ? `<div class="lift-actions"><span></span><button class="type-toggle" data-mode="wheel">↩ Use wheels</button></div>` : ""}`;
   }
   const sets = getSets(ex);
@@ -552,6 +554,7 @@ function viewEat(){
   const mealsN = (log.meals||[]).length;
   const waterMl = log.water||0, waterTgt = n.water_ml_target||3000;
   const playbook = (n.playbook||[]).map(x=>`<li>${esc(x)}</li>`).join("");
+  const around   = (n.around_training||[]).map(x=>`<li>${esc(x)}</li>`).join("");
 
   return `
     <div class="hero hero-flat"><div class="hero-title">Fuel</div>
@@ -575,6 +578,9 @@ function viewEat(){
         <button class="wbtn minus" onclick="addWater(-250)">−250</button>
       </div>
     </div>
+
+    ${around?`<div class="section-title">${esc(n.around_training_title||"Fuel around your session")}</div>
+    <div class="card"><ul class="playbook">${around}</ul></div>`:""}
 
     <div class="section-title">📸 Snap a meal → instant macros</div>
     <div class="card" id="snap-card">${mealCardHTML()}</div>

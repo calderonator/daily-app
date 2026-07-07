@@ -25,8 +25,10 @@
   },
   "principles": [
     "Goal: build a deep, springy base — stiff elastic tendons, strong deep-range legs, fast feet. This is the foundation the whole season stands on.",
+    "North-star targets this block: a full floor-to-floor Nordic curl · front & middle splits · fast-twitch legs AND arms. Every session chips at one of these.",
+    "Elastic strength = strong through the FULL range: eccentric hamstrings (Nordics), loaded end-range mobility (the splits protocol), and reactive plyos. Chase range with control, not just load.",
     "Two engines every week: STRENGTH (squat, hinge, press — RPE 7–8, leave 1–2 reps) and SPRINGS (sprints, pogos, bounds, depth jumps — max quality, full recovery).",
-    "Tendons love two things: heavy-slow strength and long isometrics. Spanish squats, calf work and tibialis raises show up all week — they build the 'tight fast' tendons that let you lunge deep and recover instantly.",
+    "Tendons love two things: heavy-slow strength and long isometrics. Spanish squats, calf work and tibialis raises show up all week — they build the 'tight fast' tendons that let you lunge deep and recover instantly. Collagen + vitamin C 30–60 min before this work (see Eat tab).",
     "Plyometrics are a skill, not conditioning. Never grind them tired — short sets, long rest, silent-fast ground contact. Quality over quantity, every rep.",
     "Own the deep range: ATG split squats, cossacks and deep lunges make the bottom of your lunge strong and safe, so the recovery is free.",
     "Progression: Week 1 groove technique at RPE 7 · Week 2 add load & contacts · Week 3 peak intent — then Spain (Jul 25) is a built-in deload: walk lots, mobilize, come back hungry.",
@@ -61,7 +63,7 @@
         { "name": "DB wrist/forearm prehab", "sets": "3", "reps": "15", "target": "light + slow", "cues": ["Wrist curls both directions", "Slow eccentric", "The épée wrist pays rent here"], "video": "dumbbell wrist curl forearm" },
         { "name": "Pallof press", "sets": "3", "reps": "12/side", "target": "cable at chest height · rest 60s", "cues": ["Resist the rotation", "Ribs down, brace", "Steady breathing"], "video": "pallof press anti rotation core" }
       ],
-      "power": "—",
+      "power": "Fast-arms primer before bench: 3×3 plyo push-ups OR med-ball chest pass — max speed off the floor/wall, full reset. Explosive, not tired.",
       "conditioning": "Optional: 10 min easy row or incline walk",
       "mobility": "T-spine openers + pec stretch 6 min"
     },
@@ -88,7 +90,7 @@
       "warmup": "RAMP: bike/row 3 min → hip hinges, leg swings, glute bridges 2×10 → 2×5 broad jumps at moderate effort",
       "exercises": [
         { "name": "Trap-bar deadlift", "sets": "4", "reps": "5", "target": "RPE 7–8 · rest 3 min", "cues": ["Chest up, push the floor away", "Handles tight to the body", "Full lockout, control it down"], "video": "trap bar deadlift form" },
-        { "name": "Nordic hamstring curl", "sets": "3", "reps": "5", "target": "slowest eccentric you can · rest 2 min", "cues": ["Lower as slowly as possible", "Fight all the way to the floor", "Push back up, hands assist"], "video": "nordic hamstring curl eccentric", "notes": "The #1 hamstring insurance. Band- or hand-assist if needed — never skip." },
+        { "name": "Nordic hamstring curl", "sets": "3", "reps": "5", "target": "slowest eccentric you can · rest 2 min", "cues": ["Hips locked, body straight from knee to head", "Resist every inch down to the floor", "Catch, then pull yourself back up"], "video": "nordic hamstring curl full range progression", "notes": "TARGET = a full floor-to-floor Nordic (down slow AND back up unassisted). Ladder: 1) band/hands-assisted slow lower → 2) unassisted slow lower to the floor → 3) small push-off rebound up → 4) full range down & up. Add ROM/reps each week; 5 controlled eccentrics beat 10 sloppy. Slider or razor curls on off-days speed this up." },
         { "name": "DB step-up", "sets": "3", "reps": "8/side", "target": "knee-height box · rest 90s", "cues": ["Whole foot on the box", "Drive through the top leg", "No push-off from the back foot"], "video": "dumbbell step up form" },
         { "name": "DB reverse lunge", "sets": "3", "reps": "8/side", "target": "deep · rest 90s", "cues": ["Step back, drop the back knee to the floor", "Big controlled range in front", "Push through the front heel to stand"], "video": "dumbbell reverse lunge deep form" },
         { "name": "Standing calf raise", "sets": "4", "reps": "12", "target": "3s lower · full range · rest 60s", "cues": ["Rise onto the big toe", "Pause at the top", "Deep, slow stretch at the bottom"], "video": "standing calf raise form", "notes": "Loaded calves = a stiffer, more elastic Achilles. Don't rush them." },
@@ -116,17 +118,21 @@
     },
     {
       "day": "Recovery + Mobility",
-      "focus": "Active recovery — this is training too · ~30–40 min",
-      "warmup": "Easy walk or bike 10 min to open everything up",
+      "focus": "Active recovery + splits protocol — this is training too · ~40 min",
+      "warmup": "Get WARM first — 10 min easy bike/walk + a few deep squat holds. Flexibility gains only happen in warm tissue; never stretch hard cold.",
       "exercises": [
-        { "name": "Ankle & hip mobility flow", "sets": "3", "reps": "5 min", "target": "unhurried", "cues": ["Deep squat holds + ankle rocks", "90/90 hip switches", "Move slow, breathe into the range"], "video": "ankle hip mobility routine for athletes" },
+        { "name": "Ankle & hip mobility flow", "sets": "2", "reps": "5 min", "target": "unhurried", "cues": ["Deep squat holds + ankle rocks", "90/90 hip switches", "Move slow, breathe into the range"], "video": "ankle hip mobility routine for athletes" },
+        { "name": "Front splits progression", "sets": "2", "reps": "60s/side", "target": "warm · PNF", "cues": ["Square the hips, back knee down", "Sink only as far as you can breathe calmly", "Contract 5s, relax deeper — repeat"], "video": "front splits stretch progression flexibility", "notes": "Blocks/books under the hands to support. Chase a little more depth each week — cm by cm." },
+        { "name": "Middle splits / pancake", "sets": "2", "reps": "60s", "target": "warm · easy breathing", "cues": ["Feet wide, hinge from the hips", "Neutral spine, chest toward the floor", "Gentle contract-relax to gain range"], "video": "middle splits pancake flexibility progression" },
+        { "name": "Jefferson curl", "sets": "2", "reps": "6", "target": "light DB · very slow", "cues": ["Roll down one vertebra at a time", "Light weight, long-spine stretch", "Roll back up slowly — strong end-range hamstrings"], "video": "jefferson curl hamstring mobility", "notes": "Start 2.5–5kg. Loaded flexibility, NOT a max lift — this directly feeds the splits and full Nordic." },
+        { "name": "Couch stretch (loaded)", "sets": "2", "reps": "45s/side", "target": "hip flexor + quad", "cues": ["Back foot up the wall, knee down", "Squeeze the glute, ribs down", "Breathe into the front of the hip"], "video": "couch stretch hip flexor" },
         { "name": "Tibialis raise", "sets": "2", "reps": "25", "target": "light · blood flow", "cues": ["Toes toward the shins", "Easy tempo", "Keeps the ankles springy"], "video": "tibialis raise" }
       ],
       "power": "—",
-      "conditioning": "Zone 2: 25–35 min easy bike, row, or brisk walk. Nose-breathing, conversational — this aerobic base is what refills your tank between bouts.",
-      "mobility": "Couch stretch, adductor rock, thoracic openers — 10 min total",
-      "notes": "Recovery is training. Easy aerobic + mobility today makes tomorrow's springs faster. Hit 8k+ steps, protein, and sleep."
+      "conditioning": "Zone 2: 20–30 min easy bike, row, or brisk walk. Nose-breathing, conversational — this aerobic base is what refills your tank between bouts.",
+      "mobility": "Finish with a long adductor + hamstring hold while you're warm",
+      "notes": "Recovery is training. Run the splits protocol 3–4×/week — always warm, never forced. PNF: 20–30s stretch, 5s gentle contract, relax deeper. Consistency beats intensity: daily gentle range wins. Hit 8k+ steps, protein, and sleep."
     }
   ],
-  "note": "3-week general-prep base block: heavy-slow strength + reactive springs + tendon isometrics, built for deep lunges and instant recovery. Weights start at smart estimates — spin the wheels to match your bar. Spain (Jul 25+) = deload: walk, mobilize, a few bodyweight circuits. Then the periodized ramp toward the Aug 15 force-velocity test and the Oct NAC."
+  "note": "3-week general-prep base block: heavy-slow strength + reactive springs + tendon isometrics + a splits protocol — built for deep lunges, instant recovery, and elastic strength (a full floor-to-floor Nordic, front & middle splits, fast limbs). Weights start at smart estimates — spin the wheels to match your bar. Fuel it from the Eat tab (carbs periodized, collagen before tendon work). Spain (Jul 25+) = deload: walk, mobilize, keep the splits ticking. Then the periodized ramp toward the Aug 15 force-velocity test and the Oct NAC."
 }
