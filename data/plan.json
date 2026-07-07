@@ -1,73 +1,132 @@
 {
-  "phase": "Hotel Block — Travel Maintenance",
-  "week": "Jul 1–5 · A B C A B · fly home Jul 6",
-  "startDate": "2026-07-01",
+  "phase": "Home Base Block — Springs & Strength",
+  "week": "Jul 6–24 · San Diego · full gym · build the engine before Spain",
+  "startDate": "2026-07-06",
   "assignments": {
-    "2026-07-01": "A — Full Body",
-    "2026-07-02": "B — Lower + Conditioning",
-    "2026-07-03": "C — Upper + Core",
-    "2026-07-04": "A — Full Body",
-    "2026-07-05": "B — Lower + Conditioning"
+    "2026-07-06": "A — Lower Power + Squat",
+    "2026-07-07": "B — Upper Strength + Core",
+    "2026-07-08": "C — Speed + Elasticity",
+    "2026-07-09": "Recovery + Mobility",
+    "2026-07-10": "D — Lower Strength + Conditioning",
+    "2026-07-11": "E — Reactive + Footwork",
+    "2026-07-12": "Recovery + Mobility",
+    "2026-07-13": "A — Lower Power + Squat",
+    "2026-07-14": "B — Upper Strength + Core",
+    "2026-07-15": "C — Speed + Elasticity",
+    "2026-07-16": "Recovery + Mobility",
+    "2026-07-17": "D — Lower Strength + Conditioning",
+    "2026-07-18": "E — Reactive + Footwork",
+    "2026-07-19": "Recovery + Mobility",
+    "2026-07-20": "A — Lower Power + Squat",
+    "2026-07-21": "B — Upper Strength + Core",
+    "2026-07-22": "C — Speed + Elasticity",
+    "2026-07-23": "Recovery + Mobility",
+    "2026-07-24": "D — Lower Strength + Conditioning"
   },
   "principles": [
-    "Goal: hold strength + stay springy. Not the week to chase PRs",
-    "Every lift at RPE 7 — two clean reps always left in the tank",
-    "Kit: dumbbells, bench, cables, pull-up bar, treadmill",
-    "40–45 min. Short on time? First 3 lifts + treadmill finisher",
-    "Morning check-in decides the day: green = as planned, amber = trim a set, red = walk + mobility only",
-    "Sleep and hydration on the road beat any set you'll do"
+    "Goal: build a deep, springy base — stiff elastic tendons, strong deep-range legs, fast feet. This is the foundation the whole season stands on.",
+    "Two engines every week: STRENGTH (squat, hinge, press — RPE 7–8, leave 1–2 reps) and SPRINGS (sprints, pogos, bounds, depth jumps — max quality, full recovery).",
+    "Tendons love two things: heavy-slow strength and long isometrics. Spanish squats, calf work and tibialis raises show up all week — they build the 'tight fast' tendons that let you lunge deep and recover instantly.",
+    "Plyometrics are a skill, not conditioning. Never grind them tired — short sets, long rest, silent-fast ground contact. Quality over quantity, every rep.",
+    "Own the deep range: ATG split squats, cossacks and deep lunges make the bottom of your lunge strong and safe, so the recovery is free.",
+    "Progression: Week 1 groove technique at RPE 7 · Week 2 add load & contacts · Week 3 peak intent — then Spain (Jul 25) is a built-in deload: walk lots, mobilize, come back hungry.",
+    "Full gym now — barbells are the base. Feed it: this volume runs on protein, carbs around sessions, and sleep."
   ],
   "days": [
     {
-      "day": "A — Full Body",
-      "focus": "Total-body strength · ~45 min",
-      "warmup": "RAMP 6–8 min: treadmill walk 3 min → leg swings, hip openers, arm circles → 10 bodyweight squats, 5 slow push-ups → 3 crisp squat jumps to prime",
+      "day": "A — Lower Power + Squat",
+      "focus": "Max strength + reactive primer · ~60 min",
+      "warmup": "RAMP 8–10 min: bike/row 3 min easy → leg swings, deep squat holds, ankle rocks → 2×6 pogo hops (stiff, quiet) → 3×3 squat jumps at max intent to prime the CNS",
       "exercises": [
-        { "name": "DB goblet squat", "sets": "3", "reps": "10", "target": "RPE 7 · rest 2 min", "cues": ["Hold one DB at your chest", "Brace, sit down between the hips", "Full depth, knees track toes"], "video": "dumbbell goblet squat form" },
-        { "name": "DB Romanian deadlift", "sets": "3", "reps": "10", "target": "RPE 7 · rest 2 min", "cues": ["Soft knees, hinge at the hips", "DBs slide down the thighs", "Flat back, squeeze glutes at the top"], "video": "dumbbell romanian deadlift form" },
-        { "name": "DB bench press", "sets": "3", "reps": "10", "target": "RPE 7 · rest 2 min", "cues": ["Shoulder blades back & down", "Lower to mid-chest", "Drive your feet into the floor"], "video": "dumbbell bench press form" },
-        { "name": "Pull-ups", "sets": "3", "reps": "6", "target": "rest 2 min", "cues": ["Full hang to start", "Pull chest toward the bar", "Control the way down"], "video": "pull up proper form", "notes": "Band or slow negatives if needed; add weight once 3×6 is easy." },
-        { "name": "1-arm DB row", "sets": "3", "reps": "10/side", "target": "RPE 7 · rest 90s", "cues": ["Hand & knee on the bench", "Row the DB to your hip", "No torso twist"], "video": "single arm dumbbell row form" },
-        { "name": "DB reverse lunge", "sets": "2", "reps": "8/side", "target": "rest 90s", "cues": ["Step back, drop the back knee", "Front shin vertical", "Push through the front heel"], "video": "dumbbell reverse lunge form" },
-        { "name": "Plank", "sets": "3", "reps": "40s", "target": "rest 60s", "cues": ["Ribs down, glutes tight", "Straight line head to heels", "Breathe steadily"], "video": "forearm plank proper form" }
+        { "name": "Back squat", "sets": "4", "reps": "5", "target": "RPE 7–8 · rest 3 min", "cues": ["Big brace, bar on the upper back", "Sit between the hips, knees track toes", "Full depth you control, then drive up hard"], "video": "barbell back squat proper form" },
+        { "name": "ATG split squat", "sets": "3", "reps": "8/side", "target": "front foot flat · deep · rest 90s", "cues": ["Front knee travels far past the toes", "Back knee kisses the floor", "Own the deepest range — this is your lunge insurance"], "video": "ATG split squat knees over toes", "notes": "Bodyweight or light DBs. Grow the depth week to week." },
+        { "name": "DB Romanian deadlift", "sets": "3", "reps": "8", "target": "RPE 7 · 3s lower · rest 2 min", "cues": ["Hinge at the hips, soft knees", "DBs graze the thighs", "Feel the hamstrings stretch, then snap the hips"], "video": "dumbbell romanian deadlift form" },
+        { "name": "Spanish squat isometric", "sets": "3", "reps": "35s", "target": "heavy band behind the knees · rest 90s", "cues": ["Shins vertical, sit straight down", "Push the knees into the band", "Quads on fire — this builds tendon stiffness"], "video": "spanish squat isometric quad tendon", "notes": "No band? Wall sit at a hard angle. The burn is the point." },
+        { "name": "Tibialis raise", "sets": "3", "reps": "20", "target": "controlled · rest 45s", "cues": ["Heels down, pull the toes toward the shins", "Slow up, slow down", "Bulletproofs the shin and ankle for lunges"], "video": "tibialis raise knees over toes" }
       ],
-      "power": "Primer before squats: 3×3 crisp squat jumps — max intent, full recovery",
-      "conditioning": "Treadmill: 6 × (30s brisk incline / 60s easy)",
-      "mobility": "Hips + shoulders 6 min while you cool down"
+      "power": "Primer before squats: 3×3 squat jumps — max intent, full reset between reps",
+      "conditioning": "Optional Z2: 15 min easy bike or row, nose-breathing pace",
+      "mobility": "Couch stretch 2×45s/side + ankle rocks 2 min while you cool down"
     },
     {
-      "day": "B — Lower + Conditioning",
-      "focus": "Legs + the fencing engine · ~45 min",
-      "warmup": "RAMP 6–8 min: treadmill 3 min → leg swings, ankle rocks, deep squat holds → 2×5 pogo hops (quiet landings)",
+      "day": "B — Upper Strength + Core",
+      "focus": "Push/pull base + épée arm care · ~55 min",
+      "warmup": "Shoulder prep: bike 3 min → band pull-aparts 2×15, wall slides, scap push-ups 2×8 → light external rotations",
       "exercises": [
-        { "name": "DB Bulgarian split squat", "sets": "3", "reps": "8/side", "target": "RPE 7 · rest 2 min", "cues": ["Back foot on the bench", "Drop straight down", "Front shin near vertical"], "video": "dumbbell bulgarian split squat form", "notes": "Closest thing to a lunge pattern all week — own it." },
-        { "name": "DB Romanian deadlift", "sets": "3", "reps": "10", "target": "RPE 7 · rest 2 min", "cues": ["Hinge at the hips", "DBs stay close to the legs", "Flat back throughout"], "video": "dumbbell romanian deadlift form" },
-        { "name": "DB step-up", "sets": "3", "reps": "8/side", "target": "RPE 7 · rest 90s", "cues": ["Whole foot on the bench", "Drive through the top leg", "Control the way down"], "video": "dumbbell step up form" },
-        { "name": "DB calf raise", "sets": "3", "reps": "15", "target": "slow lower · rest 60s", "cues": ["Full range", "Pause at the top", "3s down"], "video": "dumbbell calf raise form" },
-        { "name": "Dead bug", "sets": "3", "reps": "8/side", "target": "rest 60s", "cues": ["Low back flat on the floor", "Opposite arm & leg reach", "Slow and controlled"], "video": "dead bug core exercise" }
+        { "name": "Bench press", "sets": "4", "reps": "6", "target": "RPE 7–8 · rest 3 min", "cues": ["Shoulder blades pinned back & down", "Bar to mid-chest, elbows ~45°", "Drive the feet, press with intent"], "video": "barbell bench press proper form" },
+        { "name": "Pull-ups", "sets": "4", "reps": "6", "target": "rest 2 min", "cues": ["Dead hang to start", "Pull the chest to the bar", "Slow, controlled descent"], "video": "pull up proper form", "notes": "Add weight once 4×6 is smooth." },
+        { "name": "Overhead press", "sets": "3", "reps": "6", "target": "RPE 7 · rest 2 min", "cues": ["Ribs down, squeeze the glutes", "Press straight, head through at the top", "No back arch"], "video": "barbell overhead press form" },
+        { "name": "Chest-supported row", "sets": "3", "reps": "10", "target": "RPE 7 · rest 90s", "cues": ["Chest on the pad", "Row to the lower ribs", "Squeeze, then control back"], "video": "chest supported dumbbell row form" },
+        { "name": "Cable face pull", "sets": "3", "reps": "15", "target": "light · rest 60s", "cues": ["Pull toward the forehead", "Elbows high", "Squeeze the rear delts"], "video": "cable face pull form", "notes": "Shoulder health + posture — the unglamorous rep that keeps you fencing." },
+        { "name": "DB wrist/forearm prehab", "sets": "3", "reps": "15", "target": "light + slow", "cues": ["Wrist curls both directions", "Slow eccentric", "The épée wrist pays rent here"], "video": "dumbbell wrist curl forearm" },
+        { "name": "Pallof press", "sets": "3", "reps": "12/side", "target": "cable at chest height · rest 60s", "cues": ["Resist the rotation", "Ribs down, brace", "Steady breathing"], "video": "pallof press anti rotation core" }
       ],
       "power": "—",
-      "conditioning": "Treadmill: 8 × (20s hard / 90s easy) — this IS the fencing energy system. All-out on the 20s.",
-      "mobility": "Ankles + hips 8 min"
+      "conditioning": "Optional: 10 min easy row or incline walk",
+      "mobility": "T-spine openers + pec stretch 6 min"
     },
     {
-      "day": "C — Upper + Core",
-      "focus": "Push/pull balance + épée arm care · ~40 min",
-      "warmup": "Band-less shoulder prep: arm circles, wall slides, scap push-ups 2×8, light-DB external rotations",
+      "day": "C — Speed + Elasticity",
+      "focus": "Max velocity + reactive springs · ~60 min, all quality",
+      "warmup": "Thorough: bike 3 min → dynamic leg swings, A-skips 2×15m, high knees, ankle pops → build-up runs 3×20m (60/70/80%). Do NOT start sprints until fully warm.",
       "exercises": [
-        { "name": "DB bench press", "sets": "3", "reps": "10", "target": "RPE 7 · rest 2 min", "cues": ["Blades back & down", "Lower to mid-chest", "Controlled tempo"], "video": "dumbbell bench press form" },
-        { "name": "DB shoulder press", "sets": "3", "reps": "10", "target": "RPE 7 · rest 2 min", "cues": ["Ribs down, brace core", "Press straight overhead", "Don't arch the low back"], "video": "seated dumbbell shoulder press form" },
-        { "name": "1-arm DB row", "sets": "3", "reps": "10/side", "target": "RPE 7 · rest 90s", "cues": ["Flat back", "Row to your hip", "Squeeze the mid-back"], "video": "single arm dumbbell row form" },
-        { "name": "Cable face pull", "sets": "3", "reps": "15", "target": "light · rest 60s", "cues": ["Pull toward your forehead", "Elbows high", "Squeeze the shoulder blades"], "video": "cable face pull form", "notes": "Shoulder health + posture — the unglamorous rep that keeps you fencing." },
-        { "name": "DB lateral raise", "sets": "2", "reps": "12", "target": "light · rest 60s", "cues": ["Slight elbow bend", "Lead with the elbows", "Control the lower"], "video": "dumbbell lateral raise form" },
-        { "name": "DB wrist/forearm prehab", "sets": "2", "reps": "12", "target": "light + slow", "cues": ["Wrist curls both directions", "Slow and controlled", "The épée wrist pays rent here"], "video": "dumbbell wrist curl forearm" },
-        { "name": "Hanging knee raise", "sets": "3", "reps": "10", "target": "no swing · rest 60s", "cues": ["Hang from the bar", "Curl knees to chest", "Control down"], "video": "hanging knee raise form" },
-        { "name": "Pallof-style anti-rotation press", "sets": "3", "reps": "10/side", "target": "cable at chest height", "cues": ["Resist the rotation", "Ribs down", "Steady breathing"], "video": "pallof press anti rotation core" }
+        { "name": "Sprint accelerations", "sets": "6", "reps": "20m", "target": "100% intent · full recovery 90s+", "cues": ["Push the ground away behind you", "Patient rise, gradual posture", "Every rep max effort or it doesn't count"], "video": "sprint acceleration technique drills", "notes": "Speed is trained fresh. If quality drops, stop — this is the whole point of the day." },
+        { "name": "Flying sprints", "sets": "4", "reps": "20m fly", "target": "long rest · relaxed top speed", "cues": ["Build in, then float", "Tall, loose, fast hips", "Stay relaxed at top speed"], "video": "flying sprint max velocity drill" },
+        { "name": "Pogo hops", "sets": "4", "reps": "6 contacts", "target": "min ground time · rest 75s", "cues": ["Straight legs, spring from the ankle", "Touch and go — the floor is lava", "Tall, stiff, reactive"], "video": "pogo hops reactive plyometric" },
+        { "name": "Bounds", "sets": "4", "reps": "20m", "target": "max distance/bound · walk back rest", "cues": ["Big, powerful strides", "Drive the knee, hang in the air", "Stick each landing, then go"], "video": "alternating bound plyometric drill" },
+        { "name": "Depth jump", "sets": "4", "reps": "4", "target": "~30cm box · rest 90s", "cues": ["Step off, don't jump down", "Hit the ground and explode up instantly", "Ground contact near-silent and fast"], "video": "depth jump reactive strength", "notes": "Low box first. This is the purest elasticity drill — protect the quality." },
+        { "name": "Split squat jump", "sets": "3", "reps": "6/side", "target": "reactive · rest 90s", "cues": ["Deep lunge, switch legs in the air", "Land soft, then rebound fast", "Trains the lunge-and-recover spring directly"], "video": "split squat jump plyometric" },
+        { "name": "Copenhagen plank", "sets": "3", "reps": "25s/side", "target": "rest 45s", "cues": ["Top foot on the bench", "Lift the hips, straight line", "Bulletproofs the adductor for deep lunges"], "video": "copenhagen plank adductor" }
       ],
       "power": "—",
-      "conditioning": "Optional: treadmill easy 10 min or 6×20s strides",
-      "mobility": "T-spine + shoulders 8 min"
+      "conditioning": "None — today IS the nervous-system day. Keep it fast and fresh.",
+      "mobility": "Long adductor + hip-flexor stretch 6 min"
+    },
+    {
+      "day": "D — Lower Strength + Conditioning",
+      "focus": "Hinge strength + the fencing engine · ~60 min",
+      "warmup": "RAMP: bike/row 3 min → hip hinges, leg swings, glute bridges 2×10 → 2×5 broad jumps at moderate effort",
+      "exercises": [
+        { "name": "Trap-bar deadlift", "sets": "4", "reps": "5", "target": "RPE 7–8 · rest 3 min", "cues": ["Chest up, push the floor away", "Handles tight to the body", "Full lockout, control it down"], "video": "trap bar deadlift form" },
+        { "name": "Nordic hamstring curl", "sets": "3", "reps": "5", "target": "slowest eccentric you can · rest 2 min", "cues": ["Lower as slowly as possible", "Fight all the way to the floor", "Push back up, hands assist"], "video": "nordic hamstring curl eccentric", "notes": "The #1 hamstring insurance. Band- or hand-assist if needed — never skip." },
+        { "name": "DB step-up", "sets": "3", "reps": "8/side", "target": "knee-height box · rest 90s", "cues": ["Whole foot on the box", "Drive through the top leg", "No push-off from the back foot"], "video": "dumbbell step up form" },
+        { "name": "DB reverse lunge", "sets": "3", "reps": "8/side", "target": "deep · rest 90s", "cues": ["Step back, drop the back knee to the floor", "Big controlled range in front", "Push through the front heel to stand"], "video": "dumbbell reverse lunge deep form" },
+        { "name": "Standing calf raise", "sets": "4", "reps": "12", "target": "3s lower · full range · rest 60s", "cues": ["Rise onto the big toe", "Pause at the top", "Deep, slow stretch at the bottom"], "video": "standing calf raise form", "notes": "Loaded calves = a stiffer, more elastic Achilles. Don't rush them." },
+        { "name": "Tibialis raise", "sets": "3", "reps": "20", "target": "rest 45s", "cues": ["Toes to shins", "Slow both directions", "Springy, resilient ankles"], "video": "tibialis raise" }
+      ],
+      "power": "Primer before deadlifts: 2×5 broad jumps — stick every landing",
+      "conditioning": "Fencing engine: 8 × (20s hard bike/assault bike / 90s easy). All-out on the 20s — this IS the épée gas tank.",
+      "mobility": "Ankles + hip flexors 6 min"
+    },
+    {
+      "day": "E — Reactive + Footwork",
+      "focus": "Rotational power + fencing-specific springs · ~50 min",
+      "warmup": "Bike 3 min → dynamic mobility → 2×6 pogo hops, 3×3 squat jumps",
+      "exercises": [
+        { "name": "Med-ball rotational throw", "sets": "4", "reps": "5/side", "target": "max intent · rest 75s", "cues": ["Load the back hip, whip through", "Power from the ground up", "Throw it like you're scoring a touch"], "video": "medicine ball rotational throw power" },
+        { "name": "Hip thrust", "sets": "3", "reps": "8", "target": "RPE 7 · 1s pause at top · rest 2 min", "cues": ["Chin tucked, ribs down", "Drive the hips to full lockout", "Squeeze the glutes hard at the top"], "video": "barbell hip thrust form" },
+        { "name": "Cossack squat", "sets": "3", "reps": "6/side", "target": "deep · rest 90s", "cues": ["Sink to one side, heel down", "Keep the trailing leg straight", "Own the deep end — hip & ankle under load"], "video": "cossack squat mobility strength" },
+        { "name": "Lateral bound", "sets": "4", "reps": "5/side", "target": "stick each landing · rest 75s", "cues": ["Explode sideways off one leg", "Land stable, absorb, hold 1s", "Skater-style — the fencing lateral spring"], "video": "lateral bound skater plyometric" },
+        { "name": "Fencing footwork — explosive", "sets": "3", "reps": "30s", "target": "max quality · rest 60s", "cues": ["Advance-lunge, then recover fast", "Explosive first step, sharp recovery", "Low and loaded, light on the feet"], "video": "epee fencing footwork explosive drills" },
+        { "name": "Dead bug", "sets": "3", "reps": "8/side", "target": "slow · rest 45s", "cues": ["Low back flat on the floor", "Opposite arm & leg reach", "Exhale as you extend"], "video": "dead bug core exercise" }
+      ],
+      "power": "—",
+      "conditioning": "Optional: 5×20s strides on grass, relaxed and fast",
+      "mobility": "Full lower-body flow 8 min"
+    },
+    {
+      "day": "Recovery + Mobility",
+      "focus": "Active recovery — this is training too · ~30–40 min",
+      "warmup": "Easy walk or bike 10 min to open everything up",
+      "exercises": [
+        { "name": "Ankle & hip mobility flow", "sets": "3", "reps": "5 min", "target": "unhurried", "cues": ["Deep squat holds + ankle rocks", "90/90 hip switches", "Move slow, breathe into the range"], "video": "ankle hip mobility routine for athletes" },
+        { "name": "Tibialis raise", "sets": "2", "reps": "25", "target": "light · blood flow", "cues": ["Toes toward the shins", "Easy tempo", "Keeps the ankles springy"], "video": "tibialis raise" }
+      ],
+      "power": "—",
+      "conditioning": "Zone 2: 25–35 min easy bike, row, or brisk walk. Nose-breathing, conversational — this aerobic base is what refills your tank between bouts.",
+      "mobility": "Couch stretch, adductor rock, thoracic openers — 10 min total",
+      "notes": "Recovery is training. Easy aerobic + mobility today makes tomorrow's springs faster. Hit 8k+ steps, protein, and sleep."
     }
   ],
-  "note": "Travel block, built around the hotel gym. Weights start at smart estimates — spin the wheels to match the rack. Real periodized base block starts when you're home; full-time plan activates Aug 15 after the force-velocity test."
+  "note": "3-week general-prep base block: heavy-slow strength + reactive springs + tendon isometrics, built for deep lunges and instant recovery. Weights start at smart estimates — spin the wheels to match your bar. Spain (Jul 25+) = deload: walk, mobilize, a few bodyweight circuits. Then the periodized ramp toward the Aug 15 force-velocity test and the Oct NAC."
 }

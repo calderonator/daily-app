@@ -252,7 +252,9 @@ function removeCustomExercise(day,name){
 function exConfig(ex){
   const n = (ex.name||"").toLowerCase();
   const SPECIAL = ["force-velocity","jump","bound","pogo","nordic","copenhagen",
-                   "plank","landing","interval","pallof","dead bug","strides","mobility"];
+                   "plank","landing","interval","pallof","dead bug","strides","mobility",
+                   "sprint","spanish","isometric","wall sit","tibialis","sled",
+                   "med ball","med-ball","throw","footwork","hop","skip"];
   if(SPECIAL.some(k=>n.includes(k))) return { kind:"special" };
   const isDb = /\bdb\b|dumbbell/.test(n);
   let wDef=20, wMax=100, wStep=2.5;
@@ -260,8 +262,10 @@ function exConfig(ex){
   if(/romanian|rdl/.test(n))                    isDb ? S(24,60,2) : S(50,180,5);
   else if(/trap|deadlift/.test(n))              S(70,220,5);
   else if(/goblet/.test(n))                     S(24,60,2);
-  else if(/back squat|squat/.test(n) && !isDb)  S(40,180,2.5);
-  else if(/split squat|bulgarian/.test(n))      S(14,50,2);
+  else if(/hip thrust|glute bridge/.test(n))    S(60,220,5);
+  else if(/cossack/.test(n))                    S(0,50,2);   // often bodyweight/light
+  else if(/split squat|bulgarian/.test(n))      isDb ? S(14,50,2) : S(0,50,2); // ATG/bodyweight-friendly
+  else if(/back squat|squat/.test(n))           isDb ? S(20,60,2) : S(40,180,2.5);
   else if(/step-?up/.test(n))                   S(12,50,2);
   else if(/calf/.test(n))                       isDb ? S(24,60,2) : S(30,160,5);
   else if(/push press/.test(n))                 S(18,70,2);
@@ -485,7 +489,8 @@ function viewTrain(){
     const extras = [
       d.power&&d.power!=="—"?`<div class="note"><b>Power:</b> ${esc(d.power)}</div>`:"",
       d.conditioning&&d.conditioning!=="—"?`<div class="note"><b>Conditioning:</b> ${esc(d.conditioning)}</div>`:"",
-      d.mobility?`<div class="note"><b>Mobility:</b> ${esc(d.mobility)}</div>`:""
+      d.mobility?`<div class="note"><b>Mobility:</b> ${esc(d.mobility)}</div>`:"",
+      d.notes?`<div class="note">${esc(d.notes)}</div>`:""
     ].join("");
     const isToday = p.assignments?.[todayStr()]===d.day;
     return `<div class="day-head ${isToday?"day-today":""}">${esc(d.day)}${isToday?`<span class="today-badge">TODAY</span>`:""}<div class="day-focus">${esc(d.focus||"")}</div></div>
@@ -550,7 +555,7 @@ function viewEat(){
 
   return `
     <div class="hero hero-flat"><div class="hero-title">Fuel</div>
-      <div class="hero-sub">${esc(n.bodyweight_kg)}kg · travel ${esc(n.calories_now)} kcal · ${esc(n.protein_g)}g protein</div></div>
+      <div class="hero-sub">${esc(n.bodyweight_kg)}kg · ${esc(n.calories_now)} kcal · ${esc(n.protein_g)}g protein</div></div>
 
     <div class="section-title">Today so far ${mealsN?`· ${mealsN} meal${mealsN>1?"s":""} logged`:""}</div>
     <div class="card" style="padding:14px 16px">

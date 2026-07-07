@@ -1,14 +1,15 @@
 {
-  "date": "2026-07-01",
-  "phase": "Travel week · Jul 1–5 · fly home Jul 6",
-  "focus": "Hotel block — stay sharp",
+  "date": "2026-07-06",
+  "phase": "Home base block · Jul 6–24 · full gym",
+  "focus": "Build the base — springs & strength",
   "todos": [
     { "id": "sun",      "text": "Morning sunlight ~10 min, same wake time", "done": false },
     { "id": "creatine", "text": "Creatine 5g (any time of day)", "done": false },
     { "id": "session",  "text": "Do today's session (see Train tab)", "done": false },
     { "id": "protein4", "text": "4 protein feedings, 35–40g each", "done": false },
-    { "id": "steps",    "text": "8,000+ steps — walk the city or treadmill", "done": false },
+    { "id": "carbs",    "text": "Carbs around the session — fuel the springs", "done": false },
+    { "id": "steps",    "text": "8,000+ steps", "done": false },
     { "id": "wind",     "text": "Wind down: screens off 30 min before bed", "done": false }
   ],
-  "note": "Travel weeks are won on the boring stuff: train, protein, walk, sleep. Do the check-in below each morning — it decides how hard today's session should be."
+  "note": "You're home with a full gym and 3 clean weeks before Spain. This block builds the elastic base — tendons, deep-range legs, speed. Do the check-in below each morning; it decides how hard today's session should be. Plyo/speed days need you fresh, so on a red morning swap them for the recovery day."
 }

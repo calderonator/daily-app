@@ -5,7 +5,7 @@
   "carbs_target": 300,
   "fat_target": 80,
   "water_ml_target": 3000,
-  "calories_now": "2,400–2,600",
+  "calories_now": "2,700–2,900",
   "calories_fulltime": "2,900–3,200",
   "protein_g": "145–160",
   "carbs_g_training_day": "250–320",
@@ -27,5 +27,5 @@
     "Travel snacks: Greek yogurt, jerky, protein shake, nuts, fruit",
     "Alcohol: skip it or cap at one — it taxes sleep and recovery most"
   ],
-  "note": "Travel targets: ~2,500 kcal, 150g protein (2.0–2.2 g/kg per ISSN). Full-time targets (2,900–3,200) kick in Aug 15. Calibrate by the scale + morning energy, not by one day."
+  "note": "Home base-block targets: ~2,700–2,900 kcal, 150g protein (2.0–2.2 g/kg per ISSN), carbs up on strength & speed days. Full-time targets (2,900–3,200) kick in Aug 15. Calibrate by the scale + morning energy, not by one day."
 }
